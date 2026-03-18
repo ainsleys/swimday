@@ -1,0 +1,774 @@
+{
+  "fetchedAt": "2026-03-18T09:27:35.785Z",
+  "pools": {
+    "el-cerrito": {
+      "id": "el-cerrito",
+      "name": "El Cerrito Swim Center",
+      "address": "7007 Moeser Ln, El Cerrito, CA 94530",
+      "phone": "(510) 559-7000",
+      "website": "https://www.elcerrito.gov/150/Swim-Center",
+      "lat": 37.9063,
+      "lng": -122.2997,
+      "image": "el-cerrito.png",
+      "dataSource": "live",
+      "sourceUrl": "https://www.elcerrito.gov/DocumentCenter/View/23079/Swim-Center-Schedule-March-16th-through-March-22nd-2026",
+      "dateRange": "March 16 - March 22, 2026",
+      "schedule": {
+        "monday": [],
+        "tuesday": [],
+        "wednesday": [],
+        "thursday": [],
+        "friday": [],
+        "saturday": [],
+        "sunday": []
+      },
+      "fetchedAt": "2026-03-18T09:27:26.842Z"
+    },
+    "albany": {
+      "id": "albany",
+      "name": "Albany Aquatic Center",
+      "address": "1311 Portland Ave, Albany, CA 94706",
+      "phone": "(510) 559-6640",
+      "website": "https://www.albanyaquaticcenter.com/pool-schedule",
+      "lat": 37.888,
+      "lng": -122.2983,
+      "image": "albany.png",
+      "dataSource": "live",
+      "sourceUrl": "https://docs.wixstatic.com/ugd/aa6eff_af597d737c1e46159b3bf39c67f78dd7.pdf",
+      "dateRange": "Feb 9-April 29 No reservations required",
+      "schedule": {
+        "monday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "8:00am",
+            "close": "9:00am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "9:00am",
+            "close": "1:00pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:15pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Swim Lessons",
+            "type": "lessons",
+            "open": "4:15pm",
+            "close": "6:45pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          }
+        ],
+        "tuesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "7:00am",
+            "close": "9:25am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:35pm",
+            "close": "1:35pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:15pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Swim Lessons",
+            "type": "lessons",
+            "open": "4:15pm",
+            "close": "6:45pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          }
+        ],
+        "wednesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "8:00am",
+            "close": "9:00am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "9:00am",
+            "close": "1:00pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:15pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Swim Lessons",
+            "type": "lessons",
+            "open": "3:45pm",
+            "close": "6:45pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          }
+        ],
+        "thursday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "7:00am",
+            "close": "9:25am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:35pm",
+            "close": "1:35pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:15pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Swim Lessons",
+            "type": "lessons",
+            "open": "4:15pm",
+            "close": "6:45pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "6:45pm",
+            "close": "8:00pm"
+          }
+        ],
+        "friday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "8:00am",
+            "close": "9:00am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "9:00am",
+            "close": "12:30pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "5:45pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "6:10pm",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Swim Lessons",
+            "type": "lessons",
+            "open": "3:45pm",
+            "close": "6:15pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "6:10pm",
+            "close": "8:00pm"
+          }
+        ],
+        "saturday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "7:00am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "1:30pm",
+            "close": "4:00pm"
+          },
+          {
+            "label": "Swim Lessons",
+            "type": "lessons",
+            "open": "8:45am",
+            "close": "1:00pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "7:00am",
+            "close": "4:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "1:30pm",
+            "close": "4:00pm"
+          }
+        ],
+        "sunday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "9:05am",
+            "close": "11:55am"
+          },
+          {
+            "label": "Rec Swim",
+            "type": "open",
+            "open": "1:30pm",
+            "close": "4:00pm"
+          },
+          {
+            "label": "Outdoor Lap Swim",
+            "type": "lap",
+            "open": "8:00am",
+            "close": "4:00pm"
+          },
+          {
+            "label": "Outdoor Rec Swim",
+            "type": "open",
+            "open": "1:30pm",
+            "close": "4:00pm"
+          }
+        ]
+      },
+      "fetchedAt": "2026-03-18T09:27:32.627Z"
+    },
+    "temescal": {
+      "id": "temescal",
+      "name": "Temescal Pool",
+      "address": "3825 Telegraph Ave, Oakland, CA 94609",
+      "phone": "(510) 597-5013",
+      "website": "https://www.oaklandca.gov/Community/Parks-Facilities/Pools/Temescal-Pool",
+      "lat": 37.831,
+      "lng": -122.2626,
+      "image": "temescal.png",
+      "dataSource": "live",
+      "sourceUrl": "https://www.oaklandca.gov/Community/Parks-Facilities/Pools/Temescal-Pool",
+      "schedule": {
+        "monday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:30am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:30pm",
+            "close": "2:30pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "5:00pm",
+            "close": "7:00pm"
+          }
+        ],
+        "tuesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:30am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:30pm",
+            "close": "2:30pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "5:00pm",
+            "close": "7:00pm"
+          }
+        ],
+        "wednesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:30am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:30pm",
+            "close": "2:30pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "5:00pm",
+            "close": "7:00pm"
+          }
+        ],
+        "thursday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:30am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:30pm",
+            "close": "2:30pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "5:00pm",
+            "close": "7:00pm"
+          }
+        ],
+        "friday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:30am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "12:30pm",
+            "close": "2:30pm"
+          },
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "5:00pm",
+            "close": "7:00pm"
+          }
+        ],
+        "saturday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "11:00am",
+            "close": "2:30pm"
+          }
+        ],
+        "sunday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "11:00am",
+            "close": "2:30pm"
+          }
+        ]
+      },
+      "fetchedAt": "2026-03-18T09:27:35.770Z"
+    },
+    "strawberry-canyon": {
+      "id": "strawberry-canyon",
+      "name": "Strawberry Canyon",
+      "address": "Centennial Dr, Berkeley, CA 94720",
+      "phone": "(510) 642-7796",
+      "website": "https://recsports.berkeley.edu",
+      "lat": 37.8759,
+      "lng": -122.2432,
+      "image": "strawberry-canyon.png",
+      "dataSource": "fallback",
+      "fallbackNote": "Strawberry Canyon is a seasonal outdoor pool (typically May–September). Verify schedule at recsports.berkeley.edu or (510) 642-7796.",
+      "schedule": {
+        "monday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "5:45pm"
+          }
+        ],
+        "tuesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "5:45pm"
+          }
+        ],
+        "wednesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "5:45pm"
+          }
+        ],
+        "thursday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "5:45pm"
+          }
+        ],
+        "friday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:45am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "5:45pm"
+          }
+        ],
+        "saturday": [
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "sunday": [
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "12:00pm",
+            "close": "4:45pm"
+          }
+        ]
+      },
+      "fetchedAt": "2026-03-18T09:27:35.770Z"
+    },
+    "king-pool": {
+      "id": "king-pool",
+      "name": "King Pool",
+      "address": "1033 Allston Way, Berkeley, CA 94710",
+      "phone": "(510) 981-5150",
+      "website": "https://berkeleyca.gov/community-services/parks-recreation",
+      "lat": 37.8672,
+      "lng": -122.2993,
+      "image": "king-pool.png",
+      "dataSource": "fallback",
+      "fallbackNote": "King Pool is a seasonal outdoor pool (typically June–August). Verify at berkeleyca.gov or (510) 981-5150.",
+      "schedule": {
+        "monday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "tuesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "wednesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "thursday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "friday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "saturday": [
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "sunday": [
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ]
+      },
+      "fetchedAt": "2026-03-18T09:27:35.770Z"
+    },
+    "roberts-pool": {
+      "id": "roberts-pool",
+      "name": "Roberts Pool",
+      "address": "2601 Russell St, Berkeley, CA 94705",
+      "phone": "(510) 981-5150",
+      "website": "https://berkeleyca.gov/community-services/parks-recreation",
+      "lat": 37.8577,
+      "lng": -122.2598,
+      "image": "roberts-pool.png",
+      "dataSource": "fallback",
+      "fallbackNote": "Roberts Pool is a seasonal outdoor pool (typically June–August). Verify at berkeleyca.gov or (510) 981-5150.",
+      "schedule": {
+        "monday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "tuesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "wednesday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "thursday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "friday": [
+          {
+            "label": "Lap Swim",
+            "type": "lap",
+            "open": "6:00am",
+            "close": "8:00am"
+          },
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "saturday": [
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ],
+        "sunday": [
+          {
+            "label": "Open Swim",
+            "type": "open",
+            "open": "1:00pm",
+            "close": "4:45pm"
+          }
+        ]
+      },
+      "fetchedAt": "2026-03-18T09:27:35.770Z"
+    }
+  }
+}
