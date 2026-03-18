@@ -2,791 +2,840 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>SWIM DAY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold: #FFD700;
-  --gold-dim: #c9a800;
-  --orange: #FF6B1A;
-  --yellow: #FFE233;
-  --teal: #00CED1;
-  --teal-dim: #008fa0;
-  --bg: #07071a;
-  --card-bg: rgba(10,10,35,0.92);
-  --text: #f0e6c0;
-  --red: #ff3a3a;
-  --pixel: 'Press Start 2P', monospace;
+  --bg:          #110b05;
+  --bg2:         #1c1308;
+  --gold:        #c8890e;
+  --gold-bright: #e8aa20;
+  --gold-dim:    #7a5508;
+  --amber:       #d4720a;
+  --cream:       #f0e4c2;
+  --cream-dark:  #d8ccaa;
+  --ink:         #1e1208;
+  --ink-mid:     #3a2810;
+  --open-g:      #2a6e40;
+  --open-g-bg:   #e8f4ec;
+  --closed-fg:   #887060;
+  --season-fg:   #a05820;
+  --session-hl:  #fff8e0;
+  --session-hl-border: #c8890e;
+  --font-fantasy: 'Cinzel Decorative', Georgia, serif;
+  --font-serif:   'Cinzel', Georgia, serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { font-size: 16px; }
+
 body {
   background: var(--bg);
-  color: var(--text);
-  font-family: var(--pixel);
+  font-family: var(--font-serif);
   min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Starfield */
+/* Warm top glow */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 10% 15%, rgba(255,215,0,0.6) 0%, transparent 100%),
-    radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 40% 10%, rgba(255,215,0,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 70% 25%, rgba(255,215,0,0.6) 0%, transparent 100%),
-    radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 90% 45%, rgba(255,226,51,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 15% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 35% 85%, rgba(255,215,0,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 5% 55%, rgba(255,215,0,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 95% 5%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 48% 32%, rgba(255,226,51,0.7) 0%, transparent 100%),
-    radial-gradient(2px 2px at 72% 80%, rgba(255,215,0,0.6) 0%, transparent 100%),
-    radial-gradient(2px 2px at 20% 20%, rgba(255,255,255,0.5) 0%, transparent 100%);
+  top: 0; left: 0; right: 0; height: 40vh;
+  background: radial-gradient(ellipse at 50% -10%, rgba(200,137,14,0.18) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
-
-/* Horizon glow */
-body::after {
-  content: '';
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: 35vh;
-  background: linear-gradient(to top, rgba(255,107,26,0.08), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Scanlines */
-.scanlines {
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.07) 3px,
-    rgba(0,0,0,0.07) 4px
-  );
-  pointer-events: none;
-  z-index: 999;
-}
-
-/* ── Layout ── */
-.wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 1rem 3rem; }
 
 /* ── Header ── */
 header {
-  text-align: center;
-  padding: 2.5rem 1rem 1.5rem;
   position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem 1rem 1rem;
 }
 
 .title {
-  font-size: clamp(1.8rem, 6vw, 3.5rem);
-  letter-spacing: 0.12em;
-  color: var(--gold);
-  text-shadow: 0 0 20px rgba(255,215,0,0.6), 0 0 40px rgba(255,107,26,0.4), 3px 3px 0 rgba(0,0,0,0.8);
-  animation: flicker 8s infinite;
-}
-
-@keyframes flicker {
-  0%,95%,100%    { opacity: 1; }
-  96%            { opacity: 0.88; }
-  97%            { opacity: 1; }
-  98%            { opacity: 0.92; }
+  font-family: var(--font-fantasy);
+  font-size: clamp(1.6rem, 8vw, 3.2rem);
+  color: var(--gold-bright);
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 20px rgba(200,137,14,0.5), 0 0 60px rgba(200,137,14,0.2);
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 0.45rem;
-  letter-spacing: 0.3em;
-  color: var(--orange);
-  margin-top: 0.6rem;
+  font-family: var(--font-serif);
+  font-size: 0.6rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
+  margin-top: 0.4rem;
 }
 
-.live-info {
+.header-meta {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 1.2rem;
+  gap: 1.2rem;
+  margin-top: 0.9rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .clock {
-  font-size: 0.55rem;
-  color: var(--yellow);
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  color: var(--amber);
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
 }
 
-.location-badge {
-  font-size: 0.42rem;
-  color: var(--teal);
-  letter-spacing: 0.08em;
-  cursor: pointer;
+.loc-badge {
+  font-size: 0.58rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.06em;
 }
 
-/* ── Date picker bar ── */
+/* Date bar */
 .date-bar {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 1.2rem auto 0;
+  gap: 0.6rem;
+  margin: 0.9rem auto 0;
   flex-wrap: wrap;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 .btn {
-  background: none;
-  border: 2px solid var(--gold);
+  font-family: var(--font-serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid var(--gold-dim);
+  background: transparent;
   color: var(--gold);
-  font-family: var(--pixel);
-  font-size: 0.42rem;
-  padding: 0.5rem 0.8rem;
   cursor: pointer;
-  letter-spacing: 0.06em;
-  transition: background 0.15s, color 0.15s;
+  text-transform: uppercase;
+  transition: all 0.15s;
 }
-.btn:hover { background: var(--gold); color: var(--bg); }
-.btn.active { background: var(--gold); color: var(--bg); }
+.btn:hover, .btn.active {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
 
-.date-input-wrap {
-  display: none;
-  align-items: center;
-  gap: 0.6rem;
-}
-.date-input-wrap.visible { display: flex; }
+.date-input-wrap { display: none; align-items: center; gap: 0.5rem; }
+.date-input-wrap.show { display: flex; }
 
 input[type="date"] {
-  background: var(--card-bg);
-  border: 2px solid var(--gold-dim);
-  color: var(--yellow);
-  font-family: var(--pixel);
-  font-size: 0.4rem;
-  padding: 0.5rem 0.6rem;
+  font-family: var(--font-serif);
+  font-size: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--bg2);
+  border: 1.5px solid var(--gold-dim);
+  color: var(--amber);
   cursor: pointer;
   color-scheme: dark;
 }
 
-.checked-date-label {
-  font-size: 0.4rem;
-  color: var(--orange);
+.viewing-label {
+  font-size: 0.55rem;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-top: 0.5rem;
   display: none;
 }
-.checked-date-label.visible { display: block; }
+.viewing-label.show { display: block; }
 
-/* ── Cards grid ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+/* ── Cards container ── */
+.cards {
+  position: relative;
+  z-index: 1;
+  padding: 1.2rem 0.75rem 3rem;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* ── Pool card ── */
 .card {
-  background: var(--card-bg);
-  border: 2px solid #2a2a5a;
-  position: relative;
+  background: var(--cream);
+  border: 1px solid var(--cream-dark);
   overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: box-shadow 0.2s;
 }
 
-.card.is-open {
-  border-color: var(--teal);
-  box-shadow: 0 0 18px rgba(0,206,209,0.25), inset 0 0 30px rgba(0,206,209,0.04);
+.card.is-open-now {
+  box-shadow: 0 2px 20px rgba(200,137,14,0.35);
+  border-color: var(--gold-dim);
 }
 
-.card.is-closed-season {
-  opacity: 0.65;
-  border-color: #2a2a4a;
+/* Collapsed closed/seasonal card */
+.card.collapsed .card-expand-area { display: none; }
+.card.collapsed canvas { display: none; }
+
+/* Card header row (always visible) */
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  cursor: pointer;
+  user-select: none;
 }
 
-/* Image area */
-.card-img-wrap {
-  width: 100%;
-  aspect-ratio: 4/3;
+.card-thumb {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
   overflow: hidden;
-  position: relative;
-  background: #000;
+  background: var(--ink);
 }
 
-canvas.pool-canvas {
-  width: 100%;
-  height: 100%;
+.card-thumb canvas {
+  width: 52px !important;
+  height: 52px !important;
   display: block;
   image-rendering: pixelated;
-  image-rendering: crisp-edges;
 }
 
-.img-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, var(--card-bg) 100%);
-}
+.card-head-info { flex: 1; min-width: 0; }
 
-/* Status badge */
-.status-badge {
-  position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
-  font-family: var(--pixel);
-  font-size: 0.38rem;
-  padding: 0.35rem 0.55rem;
-  letter-spacing: 0.1em;
-  border: 2px solid;
-  text-transform: uppercase;
-}
-
-.status-open {
-  color: var(--teal);
-  border-color: var(--teal);
-  background: rgba(0,206,209,0.1);
-  text-shadow: 0 0 8px rgba(0,206,209,0.8);
-  animation: pulse-open 2s ease-in-out infinite;
-}
-
-.status-closed {
-  color: #888;
-  border-color: #555;
-  background: rgba(0,0,0,0.4);
-}
-
-.status-season {
-  color: var(--orange);
-  border-color: var(--orange);
-  background: rgba(255,107,26,0.1);
-}
-
-@keyframes pulse-open {
-  0%,100% { box-shadow: 0 0 6px rgba(0,206,209,0.4); }
-  50%      { box-shadow: 0 0 14px rgba(0,206,209,0.8); }
-}
-
-/* Card body */
-.card-body { padding: 1rem; }
-
-.pool-name {
-  font-size: 0.52rem;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-  line-height: 1.6;
-  text-shadow: 0 0 10px rgba(255,215,0,0.3);
-  margin-bottom: 0.7rem;
-}
-
-.pool-address {
-  font-size: 0.3rem;
-  color: #888;
+.card-pool-name {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink);
   letter-spacing: 0.05em;
-  margin-bottom: 0.8rem;
-  line-height: 1.8;
-}
-
-.distance {
-  color: var(--gold-dim);
-  font-size: 0.3rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Sessions list */
-.sessions-label {
-  font-size: 0.32rem;
-  color: var(--orange);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.sessions {
+.card-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.status-pill {
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.pill-open {
+  background: var(--open-g-bg);
+  color: var(--open-g);
+  border: 1px solid #b8dfca;
+}
+.pill-open::before { content: '●  '; }
+
+.pill-open-today {
+  background: #fff8e8;
+  color: #8a6010;
+  border: 1px solid #e8d090;
+}
+
+.pill-closed {
+  background: #f0ece8;
+  color: var(--closed-fg);
+  border: 1px solid #d8d0c8;
+}
+
+.pill-season {
+  background: #fdf0e8;
+  color: var(--season-fg);
+  border: 1px solid #e8c8a0;
+}
+
+.card-dist {
+  font-size: 0.48rem;
+  color: var(--closed-fg);
+  letter-spacing: 0.06em;
+}
+
+.card-chevron {
+  flex-shrink: 0;
+  font-size: 0.55rem;
+  color: var(--gold-dim);
+  transition: transform 0.2s;
+  padding-left: 0.3rem;
+}
+.card.collapsed .card-chevron { transform: rotate(-90deg); }
+
+/* ── Expanded card area ── */
+.card-expand-area {
+  border-top: 1px solid var(--cream-dark);
+}
+
+/* Full dot-matrix image */
+.card-img-full {
+  width: 100%;
+  position: relative;
+  background: var(--ink);
+  line-height: 0;
+}
+
+.card-img-full canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.card-img-full .img-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(17,11,5,0.7), transparent);
+  padding: 1.2rem 0.85rem 0.6rem;
+  font-family: var(--font-fantasy);
+  font-size: clamp(0.7rem, 3vw, 1rem);
+  color: var(--gold-bright);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+  letter-spacing: 0.06em;
+}
+
+/* Sessions */
+.card-body {
+  padding: 0.85rem;
+}
+
+.sessions-today-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.sessions-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.28rem;
 }
 
-.session-item {
+.session-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.3rem;
-  padding: 0.3rem 0.4rem;
-  border-left: 3px solid #2a2a5a;
-  letter-spacing: 0.04em;
+  padding: 0.32rem 0.5rem;
+  border-left: 3px solid var(--cream-dark);
+  font-size: 0.6rem;
 }
 
-.session-item.active-now {
-  border-left-color: var(--teal);
-  background: rgba(0,206,209,0.06);
-  color: var(--teal);
+.session-row.now {
+  border-left-color: var(--session-hl-border);
+  background: var(--session-hl);
 }
 
-.session-type { color: var(--text); opacity: 0.85; }
-.session-time { color: var(--yellow); white-space: nowrap; }
-.session-item.active-now .session-type { color: var(--teal); }
-.session-item.active-now .session-time { color: var(--teal); }
+.session-name { color: var(--ink-mid); }
+.session-time { color: var(--ink); font-weight: 600; letter-spacing: 0.03em; white-space: nowrap; }
+.session-row.now .session-name,
+.session-row.now .session-time { color: #7a4a00; }
 
-.no-sessions {
-  font-size: 0.3rem;
-  color: #555;
-  letter-spacing: 0.06em;
-  padding: 0.5rem 0;
-  line-height: 2;
-}
-
-.season-note {
-  font-size: 0.3rem;
-  color: var(--orange);
-  letter-spacing: 0.05em;
-  line-height: 1.9;
+.no-sessions-msg {
+  font-size: 0.58rem;
+  color: var(--closed-fg);
   padding: 0.4rem 0;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+.season-msg {
+  font-size: 0.58rem;
+  color: var(--season-fg);
+  padding: 0.4rem 0;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
 }
 
 /* Card footer */
-.card-footer {
-  padding: 0.6rem 1rem 0.8rem;
-  border-top: 1px solid #1a1a3a;
+.card-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.55rem 0.85rem;
+  border-top: 1px solid var(--cream-dark);
+  margin-top: 0.5rem;
 }
 
-.website-link {
-  font-size: 0.28rem;
-  color: var(--teal-dim);
+.schedule-link {
+  font-size: 0.52rem;
+  color: var(--gold);
   text-decoration: none;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
-.website-link:hover { color: var(--teal); }
+.schedule-link:hover { color: var(--amber); }
 
-.data-source-tag {
-  font-size: 0.25rem;
-  color: #333;
+.data-tag {
+  font-size: 0.4rem;
+  color: var(--cream-dark);
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
-.data-source-tag.live { color: #2a5a2a; }
+.data-tag.live { color: #a0c8a0; }
 
 /* ── Footer ── */
 .app-footer {
   text-align: center;
-  padding: 2rem;
-  font-size: 0.3rem;
-  color: #333;
-  letter-spacing: 0.08em;
+  padding: 1.5rem;
+  font-size: 0.5rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+.app-footer a { color: var(--gold-dim); text-decoration: none; }
+.app-footer a:hover { color: var(--gold); }
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   position: relative;
   z-index: 1;
 }
 
-/* ── Loading / error ── */
-.loading {
-  text-align: center;
-  padding: 4rem 2rem;
-  font-size: 0.5rem;
-  color: var(--gold-dim);
-  letter-spacing: 0.1em;
-  animation: blink 1s step-end infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-/* Responsive */
-@media (max-width: 600px) {
-  .grid { grid-template-columns: 1fr; }
-  .title { font-size: 1.6rem; }
+/* Desktop: widen a bit */
+@media (min-width: 700px) {
+  .cards { padding: 1.5rem 1rem 3rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="scanlines"></div>
-
-<div class="wrap">
-  <header>
-    <div class="title">★ SWIM DAY ★</div>
-    <div class="subtitle">East Bay Aquatic Guide · Summer '81</div>
-    <div class="live-info">
-      <div class="clock" id="clock">--:-- --</div>
-      <div class="location-badge" id="location-badge" title="Click to refresh location">📍 Locating...</div>
-    </div>
-    <div class="date-bar">
-      <button class="btn active" id="today-btn" onclick="setToday()">Today</button>
-      <button class="btn" id="future-btn" onclick="toggleFuturePicker()">Check Future Date ▶</button>
-      <div class="date-input-wrap" id="date-input-wrap">
-        <input type="date" id="future-date" onchange="onDateChange()">
-        <button class="btn" onclick="clearFuture()">✕</button>
-      </div>
-    </div>
-    <div class="checked-date-label" id="checked-date-label"></div>
-  </header>
-
-  <div id="cards-container">
-    <div class="loading" id="loading">LOADING SCHEDULE DATA...</div>
+<header>
+  <div class="title">Swim Day</div>
+  <div class="subtitle">East Bay Aquatic Guide &nbsp;·&nbsp; Summer '81</div>
+  <div class="header-meta">
+    <div class="clock" id="clock">--:-- --</div>
+    <div class="loc-badge" id="loc-badge">◎ Locating…</div>
   </div>
+  <div class="date-bar">
+    <button class="btn active" id="today-btn" onclick="setToday()">Today</button>
+    <button class="btn" id="future-btn" onclick="toggleFuture()">Future Date</button>
+    <div class="date-input-wrap" id="date-wrap">
+      <input type="date" id="future-input" onchange="onDateChange()">
+      <button class="btn" onclick="setToday()">✕</button>
+    </div>
+  </div>
+  <div class="viewing-label" id="viewing-label"></div>
+</header>
+
+<div id="cards-root">
+  <div class="loading" id="loading">Loading…</div>
 </div>
 
 <footer class="app-footer">
-  SWIM DAY &nbsp;·&nbsp; EAST BAY CA &nbsp;·&nbsp;
-  <a href="https://github.com/ainsleys/swimday" style="color:#333;text-decoration:none;">github</a>
+  Swim Day &nbsp;·&nbsp; East Bay CA &nbsp;·&nbsp;
+  <a href="https://github.com/ainsleys/swimday" target="_blank" rel="noopener">github</a>
 </footer>
 
 <script>
-// ── State ─────────────────────────────────────────────────────────────────
+// ── State ───────────────────────────────────────────────────────────────────
 let pools = null;
 let userLat = null, userLng = null;
-let displayDate = null; // null = today
+let viewDate = null; // null = today
 
-// ── Time utilities ─────────────────────────────────────────────────────────
-function parseTime(str) {
-  if (!str) return -1;
-  const m = str.toLowerCase().replace(/\s/g,'').match(/^(\d+):?(\d*)(am|pm)$/);
+// ── Utilities ───────────────────────────────────────────────────────────────
+function parseTime(s) {
+  if (!s) return -1;
+  const m = s.toLowerCase().replace(/\s/g,'').match(/^(\d+):?(\d*)(am|pm)$/);
   if (!m) return -1;
-  let h = parseInt(m[1]), min = parseInt(m[2] || 0);
-  if (m[3] === 'pm' && h !== 12) h += 12;
-  if (m[3] === 'am' && h === 12) h = 0;
-  return h * 60 + min;
+  let h = +m[1], min = +(m[2]||0);
+  if (m[3]==='pm' && h!==12) h+=12;
+  if (m[3]==='am' && h===12) h=0;
+  return h*60+min;
 }
 
-function nowMinutes() {
-  const d = new Date();
-  return d.getHours() * 60 + d.getMinutes();
+function nowMins() {
+  const d=new Date(); return d.getHours()*60+d.getMinutes();
 }
 
-function dayName(date) {
+function dayOf(date) {
   return ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][date.getDay()];
 }
 
-function fmtTime(str) {
+function fmtTime(s) {
   // "7:00am" → "7:00 AM"
-  return str.toUpperCase().replace(/([AP]M)/, ' $1');
+  return s.replace(':00','').toUpperCase().replace(/([AP]M)$/,' $1').trim();
 }
 
-function fmtDate(date) {
-  const days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
-  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  return `${days[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()}`;
+function fmtDate(d) {
+  const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${DAYS[d.getDay()]} ${MONTHS[d.getMonth()]} ${d.getDate()}`;
 }
 
-function distance(lat1, lon1, lat2, lon2) {
-  const R = 3959;
-  const dLat = (lat2-lat1) * Math.PI/180;
-  const dLon = (lon2-lon1) * Math.PI/180;
-  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+function haversine(lat1,lon1,lat2,lon2) {
+  const R=3959, dl=(lat2-lat1)*Math.PI/180, dL=(lon2-lon1)*Math.PI/180;
+  const a=Math.sin(dl/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dL/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
 
-// ── Seasonal check ─────────────────────────────────────────────────────────
-function isInSeason(pool, checkDate) {
-  if (!pool.seasonOpen) return true; // no seasonal restriction
-  const openDate = new Date(pool.seasonOpen);
-  return checkDate >= openDate;
+// ── Time/Season logic ────────────────────────────────────────────────────────
+function inSeason(pool, date) {
+  if (!pool.seasonOpen) return true;
+  return date >= new Date(pool.seasonOpen);
 }
 
-// ── Session logic ──────────────────────────────────────────────────────────
-function getSessionsForDate(pool, date) {
-  const day = dayName(date);
+function sessionsFor(pool, date) {
+  if (!inSeason(pool, date)) return [];
+  const day = dayOf(date);
   return (pool.schedule && pool.schedule[day]) || [];
 }
 
-function isOpenAtTime(sessions, minutes) {
-  return sessions.some(s => {
-    const o = parseTime(s.open), c = parseTime(s.close);
-    return o >= 0 && c >= 0 && minutes >= o && minutes < c;
-  });
+function openNow(pool) {
+  if (viewDate) return false;
+  const ss = sessionsFor(pool, new Date());
+  if (!ss.length) return false;
+  const nm = nowMins();
+  return ss.some(s => nm >= parseTime(s.open) && nm < parseTime(s.close));
 }
 
-function isOpenToday(pool, checkDate) {
-  if (!isInSeason(pool, checkDate)) return false;
-  const sessions = getSessionsForDate(pool, checkDate);
-  if (!sessions.length) return false;
-  const now = checkDate ? -1 : nowMinutes();
-  // For "today" mode, check if it's open right now
-  if (!displayDate) return isOpenAtTime(sessions, nowMinutes());
-  // For future date, just check if any sessions exist
-  return sessions.length > 0;
+function openToday(pool, date) {
+  return sessionsFor(pool, date).length > 0;
 }
 
-// ── Clock ──────────────────────────────────────────────────────────────────
-function updateClock() {
-  const now = new Date();
-  let h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12 || 12;
-  document.getElementById('clock').textContent =
-    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ampm}`;
-}
-setInterval(updateClock, 1000);
-updateClock();
+// ── Dot-matrix renderer ──────────────────────────────────────────────────────
+const WARM_R=1.08, WARM_G=0.97, WARM_B=0.82; // warm tone filter
 
-// ── Date controls ─────────────────────────────────────────────────────────
-function setToday() {
-  displayDate = null;
-  document.getElementById('today-btn').classList.add('active');
-  document.getElementById('future-btn').classList.remove('active');
-  document.getElementById('date-input-wrap').classList.remove('visible');
-  document.getElementById('checked-date-label').classList.remove('visible');
-  if (pools) renderCards();
-}
-
-function toggleFuturePicker() {
-  const wrap = document.getElementById('date-input-wrap');
-  const isVisible = wrap.classList.contains('visible');
-  if (isVisible) {
-    clearFuture();
-  } else {
-    wrap.classList.add('visible');
-    document.getElementById('future-btn').classList.add('active');
-    // Set min date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('future-date').min = today;
-    document.getElementById('future-date').value = today;
-    onDateChange();
-  }
-}
-
-function onDateChange() {
-  const val = document.getElementById('future-date').value;
-  if (!val) return;
-  // Parse as local date (avoid UTC offset issues)
-  const [y,mo,d] = val.split('-').map(Number);
-  displayDate = new Date(y, mo-1, d);
-  document.getElementById('today-btn').classList.remove('active');
-  const label = document.getElementById('checked-date-label');
-  label.textContent = `Showing: ${fmtDate(displayDate)}`;
-  label.classList.add('visible');
-  if (pools) renderCards();
-}
-
-function clearFuture() {
-  displayDate = null;
-  document.getElementById('date-input-wrap').classList.remove('visible');
-  document.getElementById('today-btn').classList.add('active');
-  document.getElementById('future-btn').classList.remove('active');
-  document.getElementById('checked-date-label').classList.remove('visible');
-  if (pools) renderCards();
-}
-
-// ── Geolocation ────────────────────────────────────────────────────────────
-function initLocation() {
-  const badge = document.getElementById('location-badge');
-  if (!navigator.geolocation) {
-    badge.textContent = '📍 Location unavailable';
-    return;
-  }
-  navigator.geolocation.getCurrentPosition(pos => {
-    userLat = pos.coords.latitude;
-    userLng = pos.coords.longitude;
-    // Reverse geocode with a simple label
-    badge.textContent = `📍 ${userLat.toFixed(2)}°N ${Math.abs(userLng).toFixed(2)}°W`;
-    if (pools) renderCards();
-  }, () => {
-    badge.textContent = '📍 Location denied';
-  }, { timeout: 8000 });
-}
-
-// ── Pixelation ────────────────────────────────────────────────────────────
-function pixelateIntoCanvas(img, canvas, pixelSize) {
+function renderDotMatrix(img, canvas) {
   const W = canvas.width, H = canvas.height;
+  const SPACING = 5, MAX_R = 2.1;
   const ctx = canvas.getContext('2d');
-  const sw = Math.ceil(W / pixelSize);
-  const sh = Math.ceil(H / pixelSize);
 
-  // Off-screen tiny canvas
-  const tiny = document.createElement('canvas');
-  tiny.width = sw; tiny.height = sh;
-  const tCtx = tiny.getContext('2d');
-  tCtx.drawImage(img, 0, 0, sw, sh);
+  // Draw to offscreen
+  const off = document.createElement('canvas');
+  off.width = W; off.height = H;
+  const octx = off.getContext('2d');
+  octx.drawImage(img, 0, 0, W, H);
+  const d = octx.getImageData(0, 0, W, H).data;
 
-  // Scale back up, nearest-neighbor
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(tiny, 0, 0, W, H);
+  // Cream background
+  ctx.fillStyle = '#f0e4c2';
+  ctx.fillRect(0, 0, W, H);
+
+  for (let y = SPACING/2; y < H; y += SPACING) {
+    for (let x = SPACING/2; x < W; x += SPACING) {
+      const px = Math.min(Math.floor(x), W-1);
+      const py = Math.min(Math.floor(y), H-1);
+      const i = (py * W + px) * 4;
+      const r = d[i], g = d[i+1], b = d[i+2];
+      const bright = (r*0.299 + g*0.587 + b*0.114) / 255;
+      const radius = (1 - bright) * MAX_R;
+      if (radius < 0.25) continue;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI*2);
+      ctx.fillStyle = `rgb(${Math.min(255,Math.round(r*WARM_R))},${Math.round(g*WARM_G)},${Math.min(255,Math.round(b*WARM_B))})`;
+      ctx.fill();
+    }
+  }
 }
 
-function loadAndPixelate(canvas, src, pixelSize) {
+// Render into a canvas element (or queue if image not loaded yet)
+function loadAndRender(canvas, src) {
   const img = new Image();
   img.crossOrigin = 'anonymous';
-  img.onload = () => pixelateIntoCanvas(img, canvas, pixelSize);
+  img.onload = () => renderDotMatrix(img, canvas);
   img.onerror = () => {
-    // Fallback: gradient
     const ctx = canvas.getContext('2d');
-    const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    grad.addColorStop(0, '#1a1a3a');
-    grad.addColorStop(1, '#0a0a20');
-    ctx.fillStyle = grad;
+    ctx.fillStyle = '#e0d0b0';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   };
   img.src = src;
 }
 
-// ── Card rendering ─────────────────────────────────────────────────────────
+// ── Clock ────────────────────────────────────────────────────────────────────
+function updateClock() {
+  const d=new Date();
+  let h=d.getHours(), m=d.getMinutes(), s=d.getSeconds();
+  const ap=h>=12?'PM':'AM'; h=h%12||12;
+  document.getElementById('clock').textContent =
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ap}`;
+}
+setInterval(updateClock,1000); updateClock();
+
+// ── Date controls ────────────────────────────────────────────────────────────
+function setToday() {
+  viewDate = null;
+  document.getElementById('today-btn').classList.add('active');
+  document.getElementById('future-btn').classList.remove('active');
+  document.getElementById('date-wrap').classList.remove('show');
+  document.getElementById('viewing-label').classList.remove('show');
+  if (pools) render();
+}
+
+function toggleFuture() {
+  const wrap = document.getElementById('date-wrap');
+  if (wrap.classList.contains('show')) { setToday(); return; }
+  wrap.classList.add('show');
+  document.getElementById('future-btn').classList.add('active');
+  document.getElementById('today-btn').classList.remove('active');
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('future-input').value = today;
+  document.getElementById('future-input').min = today;
+  onDateChange();
+}
+
+function onDateChange() {
+  const v = document.getElementById('future-input').value;
+  if (!v) return;
+  const [y,mo,d] = v.split('-').map(Number);
+  viewDate = new Date(y, mo-1, d);
+  const lbl = document.getElementById('viewing-label');
+  lbl.textContent = `Showing  ${fmtDate(viewDate).toUpperCase()}`;
+  lbl.classList.add('show');
+  if (pools) render();
+}
+
+// ── Geolocation ──────────────────────────────────────────────────────────────
+function initGeo() {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(p => {
+    userLat = p.coords.latitude;
+    userLng = p.coords.longitude;
+    document.getElementById('loc-badge').textContent = `◎ ${userLat.toFixed(2)}°N`;
+    if (pools) render();
+  }, () => {
+    document.getElementById('loc-badge').textContent = '';
+  }, { timeout: 8000 });
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
 function sortedPools() {
-  const list = Object.values(pools);
-  if (userLat !== null) {
-    list.sort((a,b) => {
-      const da = distance(userLat, userLng, a.lat, a.lng);
-      const db = distance(userLat, userLng, b.lat, b.lng);
-      return da - db;
-    });
-  }
-  return list;
-}
-
-function renderCards() {
-  const checkDate = displayDate || new Date();
-  const container = document.getElementById('cards-container');
-  container.innerHTML = '';
-
-  const grid = document.createElement('div');
-  grid.className = 'grid';
-
-  for (const pool of sortedPools()) {
-    grid.appendChild(buildCard(pool, checkDate));
-  }
-
-  container.appendChild(grid);
-
-  // Pixelate images after DOM insertion
-  for (const pool of sortedPools()) {
-    const canvas = document.getElementById(`canvas-${pool.id}`);
-    if (canvas) {
-      loadAndPixelate(canvas, `images/${pool.image}`, 7);
+  const arr = Object.values(pools);
+  // Sort: open now first, then by distance (or original order if no geo)
+  arr.sort((a, b) => {
+    const ao = openNow(a) ? 0 : 1, bo = openNow(b) ? 0 : 1;
+    if (ao !== bo) return ao - bo;
+    if (userLat !== null) {
+      return haversine(userLat, userLng, a.lat, a.lng)
+           - haversine(userLat, userLng, b.lat, b.lng);
     }
-  }
+    return 0;
+  });
+  return arr;
 }
 
-function buildCard(pool, checkDate) {
-  const sessions = getSessionsForDate(pool, checkDate);
-  const inSeason = isInSeason(pool, checkDate);
-  const isNow = !displayDate && inSeason && isOpenAtTime(sessions, nowMinutes());
-  const hasSessions = sessions.length > 0 && inSeason;
-  const isSeasonallyClosed = !inSeason;
-  const nm = !displayDate ? nowMinutes() : -1;
+function render() {
+  const date = viewDate || new Date();
+  const root = document.getElementById('cards-root');
+  root.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'cards';
+
+  for (const pool of sortedPools()) {
+    wrap.appendChild(buildCard(pool, date));
+  }
+  root.appendChild(wrap);
+
+  // Render dot-matrix images
+  document.querySelectorAll('[data-pool-img]').forEach(canvas => {
+    loadAndRender(canvas, `images/${canvas.dataset.poolImg}`);
+  });
+}
+
+function buildCard(pool, date) {
+  const ss = sessionsFor(pool, date);
+  const isNow = openNow(pool);
+  const isSeasonClosed = !inSeason(pool, date);
+  const hasSessions = ss.length > 0;
+  const nm = viewDate ? -1 : nowMins();
+
+  // Cards that are not open today start collapsed
+  const startCollapsed = !isNow && !hasSessions;
 
   const card = document.createElement('div');
-  card.className = `card${isNow ? ' is-open' : ''}${isSeasonallyClosed ? ' is-closed-season' : ''}`;
+  card.className = `card${isNow?' is-open-now':''}${startCollapsed?' collapsed':''}`;
 
-  // Image
-  const imgWrap = document.createElement('div');
-  imgWrap.className = 'card-img-wrap';
-  const canvas = document.createElement('canvas');
-  canvas.id = `canvas-${pool.id}`;
-  canvas.width = 400; canvas.height = 300;
-  canvas.className = 'pool-canvas';
-  const overlay = document.createElement('div');
-  overlay.className = 'img-overlay';
-  imgWrap.appendChild(canvas);
-  imgWrap.appendChild(overlay);
+  // ── Card header (always visible, tap to toggle) ──
+  const head = document.createElement('div');
+  head.className = 'card-head';
+  head.onclick = () => toggleCard(card);
 
-  // Status badge
-  const badge = document.createElement('div');
+  // Thumb canvas (small, always shown)
+  const thumbWrap = document.createElement('div');
+  thumbWrap.className = 'card-thumb';
+  const thumbCanvas = document.createElement('canvas');
+  thumbCanvas.width = 104; thumbCanvas.height = 104;
+  thumbCanvas.dataset.poolImg = pool.image;
+  thumbWrap.appendChild(thumbCanvas);
+  head.appendChild(thumbWrap);
+
+  // Name + status
+  const headInfo = document.createElement('div');
+  headInfo.className = 'card-head-info';
+
+  const nameEl = document.createElement('div');
+  nameEl.className = 'card-pool-name';
+  nameEl.textContent = pool.name;
+  headInfo.appendChild(nameEl);
+
+  const statusRow = document.createElement('div');
+  statusRow.className = 'card-status-row';
+
+  // Status pill
+  const pill = document.createElement('span');
   if (isNow) {
-    badge.className = 'status-badge status-open';
-    badge.textContent = '● OPEN NOW';
-  } else if (isSeasonallyClosed) {
-    badge.className = 'status-badge status-season';
-    badge.textContent = 'SEASONAL';
+    pill.className = 'status-pill pill-open';
+    pill.textContent = 'Open Now';
+  } else if (isSeasonClosed) {
+    pill.className = 'status-pill pill-season';
+    pill.textContent = 'Seasonal';
+  } else if (hasSessions) {
+    pill.className = 'status-pill pill-open-today';
+    pill.textContent = viewDate ? 'Open' : 'Open Today';
   } else {
-    badge.className = 'status-badge status-closed';
-    badge.textContent = hasSessions ? 'OPEN TODAY' : 'CLOSED';
+    pill.className = 'status-pill pill-closed';
+    pill.textContent = 'Closed';
   }
-  imgWrap.appendChild(badge);
-  card.appendChild(imgWrap);
+  statusRow.appendChild(pill);
+
+  // Distance
+  if (userLat !== null) {
+    const dist = haversine(userLat, userLng, pool.lat, pool.lng);
+    const distEl = document.createElement('span');
+    distEl.className = 'card-dist';
+    distEl.textContent = `${dist.toFixed(1)} mi`;
+    statusRow.appendChild(distEl);
+  }
+
+  headInfo.appendChild(statusRow);
+  head.appendChild(headInfo);
+
+  // Chevron
+  const chev = document.createElement('span');
+  chev.className = 'card-chevron';
+  chev.textContent = '▾';
+  head.appendChild(chev);
+
+  card.appendChild(head);
+
+  // ── Expandable area ──
+  const expand = document.createElement('div');
+  expand.className = 'card-expand-area';
+
+  // Full image
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'card-img-full';
+  const fullCanvas = document.createElement('canvas');
+  fullCanvas.width = 800; fullCanvas.height = 600;
+  fullCanvas.style.aspectRatio = '4/3';
+  fullCanvas.dataset.poolImg = pool.image;
+  imgWrap.appendChild(fullCanvas);
+
+  // Image label
+  const imgLabel = document.createElement('div');
+  imgLabel.className = 'img-label';
+  imgLabel.textContent = pool.name;
+  imgWrap.appendChild(imgLabel);
+
+  expand.appendChild(imgWrap);
 
   // Body
   const body = document.createElement('div');
   body.className = 'card-body';
 
-  const nameEl = document.createElement('div');
-  nameEl.className = 'pool-name';
-  nameEl.textContent = pool.name.toUpperCase();
-  body.appendChild(nameEl);
-
-  if (userLat !== null) {
-    const dist = distance(userLat, userLng, pool.lat, pool.lng);
-    const distEl = document.createElement('div');
-    distEl.className = 'distance';
-    distEl.textContent = `◈ ${dist.toFixed(1)} MI AWAY`;
-    body.appendChild(distEl);
-  }
-
-  const addrEl = document.createElement('div');
-  addrEl.className = 'pool-address';
-  addrEl.textContent = pool.address;
-  body.appendChild(addrEl);
-
-  if (isSeasonallyClosed && pool.seasonalNote) {
-    const noteEl = document.createElement('div');
-    noteEl.className = 'season-note';
-    noteEl.textContent = `⚑ ${pool.seasonalNote}`;
-    body.appendChild(noteEl);
-  } else if (sessions.length === 0) {
-    const noEl = document.createElement('div');
-    noEl.className = 'no-sessions';
-    noEl.textContent = pool.fallbackNote ? '⚐ SCHEDULE UNVERIFIED' : 'NO SESSIONS TODAY';
-    body.appendChild(noEl);
+  if (isSeasonClosed && pool.seasonalNote) {
+    const msg = document.createElement('div');
+    msg.className = 'season-msg';
+    msg.textContent = pool.seasonalNote;
+    body.appendChild(msg);
+  } else if (!hasSessions) {
+    const msg = document.createElement('div');
+    msg.className = 'no-sessions-msg';
+    msg.textContent = pool.fallbackNote || 'No sessions scheduled.';
+    body.appendChild(msg);
   } else {
-    const label = document.createElement('div');
-    label.className = 'sessions-label';
-    label.textContent = displayDate ? `▸ ${fmtDate(checkDate)}` : '▸ TODAY';
-    body.appendChild(label);
+    const lbl = document.createElement('div');
+    lbl.className = 'sessions-today-label';
+    lbl.textContent = viewDate ? `Sessions · ${fmtDate(date)}` : "Today's Sessions";
+    body.appendChild(lbl);
 
     const ul = document.createElement('ul');
-    ul.className = 'sessions';
-    for (const s of sessions) {
+    ul.className = 'sessions-list';
+    ss.forEach(s => {
+      const o = parseTime(s.open), c = parseTime(s.close);
+      const active = nm >= 0 && nm >= o && nm < c;
       const li = document.createElement('li');
-      const isActive = nm >= 0 && nm >= parseTime(s.open) && nm < parseTime(s.close);
-      li.className = `session-item${isActive ? ' active-now' : ''}`;
-      li.innerHTML = `<span class="session-type">${s.label}</span><span class="session-time">${fmtTime(s.open)} – ${fmtTime(s.close)}</span>`;
+      li.className = `session-row${active?' now':''}`;
+      li.innerHTML = `<span class="session-name">${s.label}</span><span class="session-time">${fmtTime(s.open)} – ${fmtTime(s.close)}</span>`;
       ul.appendChild(li);
-    }
+    });
     body.appendChild(ul);
   }
 
-  card.appendChild(body);
+  expand.appendChild(body);
 
   // Footer
-  const footer = document.createElement('div');
-  footer.className = 'card-footer';
+  const foot = document.createElement('div');
+  foot.className = 'card-foot';
   const link = document.createElement('a');
-  link.className = 'website-link';
+  link.className = 'schedule-link';
   link.href = pool.website;
   link.target = '_blank';
   link.rel = 'noopener';
-  link.textContent = '↗ SCHEDULE';
+  link.textContent = '↗ Full Schedule';
+  link.onclick = e => e.stopPropagation();
   const tag = document.createElement('span');
-  tag.className = `data-source-tag${pool.dataSource === 'live' ? ' live' : ''}`;
-  tag.textContent = pool.dataSource === 'live' ? '● LIVE' : '○ FALLBACK';
-  footer.appendChild(link);
-  footer.appendChild(tag);
-  card.appendChild(footer);
+  tag.className = `data-tag${pool.dataSource==='live'?' live':''}`;
+  tag.textContent = pool.dataSource==='live' ? '● live data' : '○ estimated';
+  foot.appendChild(link);
+  foot.appendChild(tag);
+  expand.appendChild(foot);
 
+  card.appendChild(expand);
   return card;
 }
 
-// ── Init ───────────────────────────────────────────────────────────────────
+function toggleCard(card) {
+  card.classList.toggle('collapsed');
+  // Trigger dot-matrix render on expand if not yet done
+  card.querySelectorAll('canvas[data-pool-img]').forEach(c => {
+    if (!c._rendered) {
+      loadAndRender(c, `images/${c.dataset.poolImg}`);
+      c._rendered = true;
+    }
+  });
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
 async function init() {
   try {
     const resp = await fetch('data/schedules.json');
     const data = await resp.json();
     pools = data.pools;
-    document.getElementById('loading').style.display = 'none';
-    renderCards();
+    document.getElementById('loading').remove();
+    render();
   } catch(e) {
-    document.getElementById('loading').textContent = 'ERROR LOADING SCHEDULE DATA';
+    document.getElementById('loading').textContent = 'Failed to load schedule data.';
   }
-  initLocation();
-  // Re-render every minute to update "open now" state
-  setInterval(() => { if (pools && !displayDate) renderCards(); }, 60000);
+  initGeo();
+  setInterval(() => { if (pools && !viewDate) render(); }, 60000);
 }
 
 init();
