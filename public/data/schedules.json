@@ -616,103 +616,81 @@
     "king-pool": {
       "id": "king-pool",
       "name": "King Pool",
-      "address": "1033 Allston Way, Berkeley, CA 94710",
-      "phone": "(510) 981-5150",
+      "address": "1700 Hopkins St, Berkeley, CA 94707",
+      "phone": "(510) 981-5105",
       "website": "https://berkeleyca.gov/community-services/parks-recreation",
-      "lat": 37.8672,
-      "lng": -122.2993,
+      "lat": 37.8793,
+      "lng": -122.2737,
       "image": "king-pool.png",
-      "dataSource": "fallback",
-      "fallbackNote": "King Pool (City of Berkeley). Schedule URL not yet found — berkeleyca.gov is WAF-blocked. Verify at (510) 981-5150.",
+      "dataSource": "live",
+      "sourceUrl": "https://berkeleyca.gov/sites/default/files/2026-02/King%20Pool%20Schedule%20Spring%202026%203.2-6.7.pdf",
+      "dateRange": "March 2 – June 7, 2026",
       "schedule": {
         "monday": [
-          {
-            "label": "Lap Swim",
-            "type": "lap",
-            "open": "6:00am",
-            "close": "8:00am"
-          },
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Masters", "type": "masters", "open": "6:00am", "close": "7:30am" },
+          { "label": "Lap Swim", "type": "lap", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Family Swim", "type": "open", "open": "8:00am", "close": "12:30pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:00am", "close": "12:30pm" },
+          { "label": "Barracudas", "type": "team", "open": "4:00pm", "close": "6:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "6:00pm", "close": "8:00pm" },
+          { "label": "Family Swim", "type": "open", "open": "6:00pm", "close": "8:00pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:00pm", "close": "8:00pm" }
         ],
         "tuesday": [
-          {
-            "label": "Lap Swim",
-            "type": "lap",
-            "open": "6:00am",
-            "close": "8:00am"
-          },
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Lap Swim", "type": "lap", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Family Swim", "type": "open", "open": "8:00am", "close": "12:30pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Barracudas", "type": "team", "open": "4:00pm", "close": "6:00pm" },
+          { "label": "Masters", "type": "masters", "open": "6:30pm", "close": "8:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "6:30pm", "close": "8:00pm" },
+          { "label": "Family Swim", "type": "open", "open": "6:30pm", "close": "8:00pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:30pm", "close": "8:00pm" }
         ],
         "wednesday": [
-          {
-            "label": "Lap Swim",
-            "type": "lap",
-            "open": "6:00am",
-            "close": "8:00am"
-          },
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Masters", "type": "masters", "open": "6:00am", "close": "7:30am" },
+          { "label": "Lap Swim", "type": "lap", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Family Swim", "type": "open", "open": "8:00am", "close": "12:30pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:00am", "close": "12:30pm" },
+          { "label": "Barracudas", "type": "team", "open": "4:00pm", "close": "6:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "6:00pm", "close": "8:00pm" },
+          { "label": "Family Swim", "type": "open", "open": "6:00pm", "close": "8:00pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:00pm", "close": "8:00pm" }
         ],
         "thursday": [
-          {
-            "label": "Lap Swim",
-            "type": "lap",
-            "open": "6:00am",
-            "close": "8:00am"
-          },
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Lap Swim", "type": "lap", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Family Swim", "type": "open", "open": "8:00am", "close": "12:30pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Barracudas", "type": "team", "open": "4:00pm", "close": "6:00pm" },
+          { "label": "Masters", "type": "masters", "open": "6:30pm", "close": "8:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "6:30pm", "close": "8:00pm" },
+          { "label": "Family Swim", "type": "open", "open": "6:30pm", "close": "8:00pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:30pm", "close": "8:00pm" }
         ],
         "friday": [
-          {
-            "label": "Lap Swim",
-            "type": "lap",
-            "open": "6:00am",
-            "close": "8:00am"
-          },
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Masters", "type": "masters", "open": "6:00am", "close": "7:30am" },
+          { "label": "Lap Swim", "type": "lap", "open": "7:30am", "close": "12:30pm" },
+          { "label": "Family Swim", "type": "open", "open": "8:00am", "close": "12:30pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:00am", "close": "12:30pm" },
+          { "label": "Barracudas", "type": "team", "open": "4:00pm", "close": "6:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "6:00pm", "close": "8:00pm" },
+          { "label": "Family Swim", "type": "open", "open": "6:00pm", "close": "8:00pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "6:00pm", "close": "8:00pm" }
         ],
         "saturday": [
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Lap Swim", "type": "lap", "open": "8:00am", "close": "12:00pm" },
+          { "label": "Family Swim", "type": "open", "open": "8:00am", "close": "12:00pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "8:00am", "close": "12:00pm" }
         ],
         "sunday": [
-          {
-            "label": "Open Swim",
-            "type": "open",
-            "open": "1:00pm",
-            "close": "4:45pm"
-          }
+          { "label": "Masters", "type": "masters", "open": "9:30am", "close": "11:00am" },
+          { "label": "Swim Lessons", "type": "lessons", "open": "10:00am", "close": "12:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "11:00am", "close": "12:00pm" },
+          { "label": "Lap Swim", "type": "lap", "open": "12:00pm", "close": "1:30pm" },
+          { "label": "Family Swim", "type": "open", "open": "12:00pm", "close": "1:30pm" },
+          { "label": "Independent Exercise", "type": "fitness", "open": "9:30am", "close": "1:30pm" }
         ]
       },
-      "fetchedAt": "2026-03-18T09:49:10.039Z"
+      "fetchedAt": "2026-03-18T21:40:00.000Z"
     },
     "roberts-pool": {
       "id": "roberts-pool",
