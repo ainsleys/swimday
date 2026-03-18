@@ -179,7 +179,6 @@ input[type="date"] {
 
 /* Collapsed closed/seasonal card */
 .card.collapsed .card-expand-area { display: none; }
-.card.collapsed canvas { display: none; }
 
 /* Card header row (always visible) */
 .card-head {
@@ -199,11 +198,12 @@ input[type="date"] {
   background: var(--ink);
 }
 
-.card-thumb canvas {
-  width: 52px !important;
-  height: 52px !important;
+.card-thumb img {
+  width: 52px;
+  height: 52px;
   display: block;
-  image-rendering: pixelated;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card-head-info { flex: 1; min-width: 0; }
@@ -290,11 +290,12 @@ input[type="date"] {
   line-height: 0;
 }
 
-.card-img-full canvas {
+.card-img-full img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 4/3;
   display: block;
-  image-rendering: pixelated;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card-img-full .img-label {
@@ -429,7 +430,7 @@ input[type="date"] {
 
 <header>
   <div class="title">Swim Day</div>
-  <div class="subtitle">East Bay Aquatic Guide &nbsp;·&nbsp; Summer '81</div>
+  <div class="subtitle">East Bay Aquatic Guide</div>
   <div class="header-meta">
     <div class="clock" id="clock">--:-- --</div>
     <div class="loc-badge" id="loc-badge">◎ Locating…</div>
@@ -520,54 +521,6 @@ function openToday(pool, date) {
   return sessionsFor(pool, date).length > 0;
 }
 
-// ── Dot-matrix renderer ──────────────────────────────────────────────────────
-const WARM_R=1.08, WARM_G=0.97, WARM_B=0.82; // warm tone filter
-
-function renderDotMatrix(img, canvas) {
-  const W = canvas.width, H = canvas.height;
-  const SPACING = 5, MAX_R = 2.1;
-  const ctx = canvas.getContext('2d');
-
-  // Draw to offscreen
-  const off = document.createElement('canvas');
-  off.width = W; off.height = H;
-  const octx = off.getContext('2d');
-  octx.drawImage(img, 0, 0, W, H);
-  const d = octx.getImageData(0, 0, W, H).data;
-
-  // Cream background
-  ctx.fillStyle = '#f0e4c2';
-  ctx.fillRect(0, 0, W, H);
-
-  for (let y = SPACING/2; y < H; y += SPACING) {
-    for (let x = SPACING/2; x < W; x += SPACING) {
-      const px = Math.min(Math.floor(x), W-1);
-      const py = Math.min(Math.floor(y), H-1);
-      const i = (py * W + px) * 4;
-      const r = d[i], g = d[i+1], b = d[i+2];
-      const bright = (r*0.299 + g*0.587 + b*0.114) / 255;
-      const radius = (1 - bright) * MAX_R;
-      if (radius < 0.25) continue;
-      ctx.beginPath();
-      ctx.arc(x, y, radius, 0, Math.PI*2);
-      ctx.fillStyle = `rgb(${Math.min(255,Math.round(r*WARM_R))},${Math.round(g*WARM_G)},${Math.min(255,Math.round(b*WARM_B))})`;
-      ctx.fill();
-    }
-  }
-}
-
-// Render into a canvas element (or queue if image not loaded yet)
-function loadAndRender(canvas, src) {
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.onload = () => renderDotMatrix(img, canvas);
-  img.onerror = () => {
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#e0d0b0';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  };
-  img.src = src;
-}
 
 // ── Clock ────────────────────────────────────────────────────────────────────
 function updateClock() {
@@ -652,11 +605,6 @@ function render() {
     wrap.appendChild(buildCard(pool, date));
   }
   root.appendChild(wrap);
-
-  // Render dot-matrix images
-  document.querySelectorAll('[data-pool-img]').forEach(canvas => {
-    loadAndRender(canvas, `images/${canvas.dataset.poolImg}`);
-  });
 }
 
 function buildCard(pool, date) {
@@ -677,13 +625,13 @@ function buildCard(pool, date) {
   head.className = 'card-head';
   head.onclick = () => toggleCard(card);
 
-  // Thumb canvas (small, always shown)
+  // Thumb image (always shown)
   const thumbWrap = document.createElement('div');
   thumbWrap.className = 'card-thumb';
-  const thumbCanvas = document.createElement('canvas');
-  thumbCanvas.width = 104; thumbCanvas.height = 104;
-  thumbCanvas.dataset.poolImg = pool.image;
-  thumbWrap.appendChild(thumbCanvas);
+  const thumbImg = document.createElement('img');
+  thumbImg.src = `images/${pool.image}`;
+  thumbImg.alt = pool.name;
+  thumbWrap.appendChild(thumbImg);
   head.appendChild(thumbWrap);
 
   // Name + status
@@ -742,11 +690,10 @@ function buildCard(pool, date) {
   // Full image
   const imgWrap = document.createElement('div');
   imgWrap.className = 'card-img-full';
-  const fullCanvas = document.createElement('canvas');
-  fullCanvas.width = 800; fullCanvas.height = 600;
-  fullCanvas.style.aspectRatio = '4/3';
-  fullCanvas.dataset.poolImg = pool.image;
-  imgWrap.appendChild(fullCanvas);
+  const fullImg = document.createElement('img');
+  fullImg.src = `images/${pool.image}`;
+  fullImg.alt = pool.name;
+  imgWrap.appendChild(fullImg);
 
   // Image label
   const imgLabel = document.createElement('div');
@@ -814,13 +761,6 @@ function buildCard(pool, date) {
 
 function toggleCard(card) {
   card.classList.toggle('collapsed');
-  // Trigger dot-matrix render on expand if not yet done
-  card.querySelectorAll('canvas[data-pool-img]').forEach(c => {
-    if (!c._rendered) {
-      loadAndRender(c, `images/${c.dataset.poolImg}`);
-      c._rendered = true;
-    }
-  });
 }
 
 // ── Init ─────────────────────────────────────────────────────────────────────
