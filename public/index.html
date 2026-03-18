@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWIM DAY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #FFD700;
+  --gold-dim: #c9a800;
+  --orange: #FF6B1A;
+  --yellow: #FFE233;
+  --teal: #00CED1;
+  --teal-dim: #008fa0;
+  --bg: #07071a;
+  --card-bg: rgba(10,10,35,0.92);
+  --text: #f0e6c0;
+  --red: #ff3a3a;
+  --pixel: 'Press Start 2P', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--pixel);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Starfield */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,215,0,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 10%, rgba(255,215,0,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 25%, rgba(255,215,0,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 45%, rgba(255,226,51,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 85%, rgba(255,215,0,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 55%, rgba(255,215,0,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 5%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 48% 32%, rgba(255,226,51,0.7) 0%, transparent 100%),
+    radial-gradient(2px 2px at 72% 80%, rgba(255,215,0,0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 20% 20%, rgba(255,255,255,0.5) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Horizon glow */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 35vh;
+  background: linear-gradient(to top, rgba(255,107,26,0.08), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanlines */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.07) 3px,
+    rgba(0,0,0,0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── Layout ── */
+.wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+/* ── Header ── */
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+  position: relative;
+}
+
+.title {
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(255,215,0,0.6), 0 0 40px rgba(255,107,26,0.4), 3px 3px 0 rgba(0,0,0,0.8);
+  animation: flicker 8s infinite;
+}
+
+@keyframes flicker {
+  0%,95%,100%    { opacity: 1; }
+  96%            { opacity: 0.88; }
+  97%            { opacity: 1; }
+  98%            { opacity: 0.92; }
+}
+
+.subtitle {
+  font-size: 0.45rem;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+.live-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.clock {
+  font-size: 0.55rem;
+  color: var(--yellow);
+  letter-spacing: 0.1em;
+}
+
+.location-badge {
+  font-size: 0.42rem;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+/* ── Date picker bar ── */
+.date-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.2rem auto 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: none;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--pixel);
+  font-size: 0.42rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: background 0.15s, color 0.15s;
+}
+.btn:hover { background: var(--gold); color: var(--bg); }
+.btn.active { background: var(--gold); color: var(--bg); }
+
+.date-input-wrap {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+}
+.date-input-wrap.visible { display: flex; }
+
+input[type="date"] {
+  background: var(--card-bg);
+  border: 2px solid var(--gold-dim);
+  color: var(--yellow);
+  font-family: var(--pixel);
+  font-size: 0.4rem;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  color-scheme: dark;
+}
+
+.checked-date-label {
+  font-size: 0.4rem;
+  color: var(--orange);
+  display: none;
+}
+.checked-date-label.visible { display: block; }
+
+/* ── Cards grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* ── Pool card ── */
+.card {
+  background: var(--card-bg);
+  border: 2px solid #2a2a5a;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card.is-open {
+  border-color: var(--teal);
+  box-shadow: 0 0 18px rgba(0,206,209,0.25), inset 0 0 30px rgba(0,206,209,0.04);
+}
+
+.card.is-closed-season {
+  opacity: 0.65;
+  border-color: #2a2a4a;
+}
+
+/* Image area */
+.card-img-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+canvas.pool-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, var(--card-bg) 100%);
+}
+
+/* Status badge */
+.status-badge {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  font-family: var(--pixel);
+  font-size: 0.38rem;
+  padding: 0.35rem 0.55rem;
+  letter-spacing: 0.1em;
+  border: 2px solid;
+  text-transform: uppercase;
+}
+
+.status-open {
+  color: var(--teal);
+  border-color: var(--teal);
+  background: rgba(0,206,209,0.1);
+  text-shadow: 0 0 8px rgba(0,206,209,0.8);
+  animation: pulse-open 2s ease-in-out infinite;
+}
+
+.status-closed {
+  color: #888;
+  border-color: #555;
+  background: rgba(0,0,0,0.4);
+}
+
+.status-season {
+  color: var(--orange);
+  border-color: var(--orange);
+  background: rgba(255,107,26,0.1);
+}
+
+@keyframes pulse-open {
+  0%,100% { box-shadow: 0 0 6px rgba(0,206,209,0.4); }
+  50%      { box-shadow: 0 0 14px rgba(0,206,209,0.8); }
+}
+
+/* Card body */
+.card-body { padding: 1rem; }
+
+.pool-name {
+  font-size: 0.52rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-shadow: 0 0 10px rgba(255,215,0,0.3);
+  margin-bottom: 0.7rem;
+}
+
+.pool-address {
+  font-size: 0.3rem;
+  color: #888;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+  line-height: 1.8;
+}
+
+.distance {
+  color: var(--gold-dim);
+  font-size: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Sessions list */
+.sessions-label {
+  font-size: 0.32rem;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.sessions {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.session-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.3rem;
+  padding: 0.3rem 0.4rem;
+  border-left: 3px solid #2a2a5a;
+  letter-spacing: 0.04em;
+}
+
+.session-item.active-now {
+  border-left-color: var(--teal);
+  background: rgba(0,206,209,0.06);
+  color: var(--teal);
+}
+
+.session-type { color: var(--text); opacity: 0.85; }
+.session-time { color: var(--yellow); white-space: nowrap; }
+.session-item.active-now .session-type { color: var(--teal); }
+.session-item.active-now .session-time { color: var(--teal); }
+
+.no-sessions {
+  font-size: 0.3rem;
+  color: #555;
+  letter-spacing: 0.06em;
+  padding: 0.5rem 0;
+  line-height: 2;
+}
+
+.season-note {
+  font-size: 0.3rem;
+  color: var(--orange);
+  letter-spacing: 0.05em;
+  line-height: 1.9;
+  padding: 0.4rem 0;
+}
+
+/* Card footer */
+.card-footer {
+  padding: 0.6rem 1rem 0.8rem;
+  border-top: 1px solid #1a1a3a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.website-link {
+  font-size: 0.28rem;
+  color: var(--teal-dim);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+.website-link:hover { color: var(--teal); }
+
+.data-source-tag {
+  font-size: 0.25rem;
+  color: #333;
+  letter-spacing: 0.05em;
+}
+.data-source-tag.live { color: #2a5a2a; }
+
+/* ── Footer ── */
+.app-footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.3rem;
+  color: #333;
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Loading / error ── */
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 0.5rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.1em;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .title { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<div class="wrap">
+  <header>
+    <div class="title">★ SWIM DAY ★</div>
+    <div class="subtitle">East Bay Aquatic Guide · Summer '81</div>
+    <div class="live-info">
+      <div class="clock" id="clock">--:-- --</div>
+      <div class="location-badge" id="location-badge" title="Click to refresh location">📍 Locating...</div>
+    </div>
+    <div class="date-bar">
+      <button class="btn active" id="today-btn" onclick="setToday()">Today</button>
+      <button class="btn" id="future-btn" onclick="toggleFuturePicker()">Check Future Date ▶</button>
+      <div class="date-input-wrap" id="date-input-wrap">
+        <input type="date" id="future-date" onchange="onDateChange()">
+        <button class="btn" onclick="clearFuture()">✕</button>
+      </div>
+    </div>
+    <div class="checked-date-label" id="checked-date-label"></div>
+  </header>
+
+  <div id="cards-container">
+    <div class="loading" id="loading">LOADING SCHEDULE DATA...</div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  SWIM DAY &nbsp;·&nbsp; EAST BAY CA &nbsp;·&nbsp;
+  <a href="https://github.com/ainsleys/swimday" style="color:#333;text-decoration:none;">github</a>
+</footer>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────
+let pools = null;
+let userLat = null, userLng = null;
+let displayDate = null; // null = today
+
+// ── Time utilities ─────────────────────────────────────────────────────────
+function parseTime(str) {
+  if (!str) return -1;
+  const m = str.toLowerCase().replace(/\s/g,'').match(/^(\d+):?(\d*)(am|pm)$/);
+  if (!m) return -1;
+  let h = parseInt(m[1]), min = parseInt(m[2] || 0);
+  if (m[3] === 'pm' && h !== 12) h += 12;
+  if (m[3] === 'am' && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+function nowMinutes() {
+  const d = new Date();
+  return d.getHours() * 60 + d.getMinutes();
+}
+
+function dayName(date) {
+  return ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][date.getDay()];
+}
+
+function fmtTime(str) {
+  // "7:00am" → "7:00 AM"
+  return str.toUpperCase().replace(/([AP]M)/, ' $1');
+}
+
+function fmtDate(date) {
+  const days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  return `${days[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()}`;
+}
+
+function distance(lat1, lon1, lat2, lon2) {
+  const R = 3959;
+  const dLat = (lat2-lat1) * Math.PI/180;
+  const dLon = (lon2-lon1) * Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// ── Seasonal check ─────────────────────────────────────────────────────────
+function isInSeason(pool, checkDate) {
+  if (!pool.seasonOpen) return true; // no seasonal restriction
+  const openDate = new Date(pool.seasonOpen);
+  return checkDate >= openDate;
+}
+
+// ── Session logic ──────────────────────────────────────────────────────────
+function getSessionsForDate(pool, date) {
+  const day = dayName(date);
+  return (pool.schedule && pool.schedule[day]) || [];
+}
+
+function isOpenAtTime(sessions, minutes) {
+  return sessions.some(s => {
+    const o = parseTime(s.open), c = parseTime(s.close);
+    return o >= 0 && c >= 0 && minutes >= o && minutes < c;
+  });
+}
+
+function isOpenToday(pool, checkDate) {
+  if (!isInSeason(pool, checkDate)) return false;
+  const sessions = getSessionsForDate(pool, checkDate);
+  if (!sessions.length) return false;
+  const now = checkDate ? -1 : nowMinutes();
+  // For "today" mode, check if it's open right now
+  if (!displayDate) return isOpenAtTime(sessions, nowMinutes());
+  // For future date, just check if any sessions exist
+  return sessions.length > 0;
+}
+
+// ── Clock ──────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  document.getElementById('clock').textContent =
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ampm}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Date controls ─────────────────────────────────────────────────────────
+function setToday() {
+  displayDate = null;
+  document.getElementById('today-btn').classList.add('active');
+  document.getElementById('future-btn').classList.remove('active');
+  document.getElementById('date-input-wrap').classList.remove('visible');
+  document.getElementById('checked-date-label').classList.remove('visible');
+  if (pools) renderCards();
+}
+
+function toggleFuturePicker() {
+  const wrap = document.getElementById('date-input-wrap');
+  const isVisible = wrap.classList.contains('visible');
+  if (isVisible) {
+    clearFuture();
+  } else {
+    wrap.classList.add('visible');
+    document.getElementById('future-btn').classList.add('active');
+    // Set min date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('future-date').min = today;
+    document.getElementById('future-date').value = today;
+    onDateChange();
+  }
+}
+
+function onDateChange() {
+  const val = document.getElementById('future-date').value;
+  if (!val) return;
+  // Parse as local date (avoid UTC offset issues)
+  const [y,mo,d] = val.split('-').map(Number);
+  displayDate = new Date(y, mo-1, d);
+  document.getElementById('today-btn').classList.remove('active');
+  const label = document.getElementById('checked-date-label');
+  label.textContent = `Showing: ${fmtDate(displayDate)}`;
+  label.classList.add('visible');
+  if (pools) renderCards();
+}
+
+function clearFuture() {
+  displayDate = null;
+  document.getElementById('date-input-wrap').classList.remove('visible');
+  document.getElementById('today-btn').classList.add('active');
+  document.getElementById('future-btn').classList.remove('active');
+  document.getElementById('checked-date-label').classList.remove('visible');
+  if (pools) renderCards();
+}
+
+// ── Geolocation ────────────────────────────────────────────────────────────
+function initLocation() {
+  const badge = document.getElementById('location-badge');
+  if (!navigator.geolocation) {
+    badge.textContent = '📍 Location unavailable';
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(pos => {
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
+    // Reverse geocode with a simple label
+    badge.textContent = `📍 ${userLat.toFixed(2)}°N ${Math.abs(userLng).toFixed(2)}°W`;
+    if (pools) renderCards();
+  }, () => {
+    badge.textContent = '📍 Location denied';
+  }, { timeout: 8000 });
+}
+
+// ── Pixelation ────────────────────────────────────────────────────────────
+function pixelateIntoCanvas(img, canvas, pixelSize) {
+  const W = canvas.width, H = canvas.height;
+  const ctx = canvas.getContext('2d');
+  const sw = Math.ceil(W / pixelSize);
+  const sh = Math.ceil(H / pixelSize);
+
+  // Off-screen tiny canvas
+  const tiny = document.createElement('canvas');
+  tiny.width = sw; tiny.height = sh;
+  const tCtx = tiny.getContext('2d');
+  tCtx.drawImage(img, 0, 0, sw, sh);
+
+  // Scale back up, nearest-neighbor
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(tiny, 0, 0, W, H);
+}
+
+function loadAndPixelate(canvas, src, pixelSize) {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => pixelateIntoCanvas(img, canvas, pixelSize);
+  img.onerror = () => {
+    // Fallback: gradient
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    grad.addColorStop(0, '#1a1a3a');
+    grad.addColorStop(1, '#0a0a20');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  };
+  img.src = src;
+}
+
+// ── Card rendering ─────────────────────────────────────────────────────────
+function sortedPools() {
+  const list = Object.values(pools);
+  if (userLat !== null) {
+    list.sort((a,b) => {
+      const da = distance(userLat, userLng, a.lat, a.lng);
+      const db = distance(userLat, userLng, b.lat, b.lng);
+      return da - db;
+    });
+  }
+  return list;
+}
+
+function renderCards() {
+  const checkDate = displayDate || new Date();
+  const container = document.getElementById('cards-container');
+  container.innerHTML = '';
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+
+  for (const pool of sortedPools()) {
+    grid.appendChild(buildCard(pool, checkDate));
+  }
+
+  container.appendChild(grid);
+
+  // Pixelate images after DOM insertion
+  for (const pool of sortedPools()) {
+    const canvas = document.getElementById(`canvas-${pool.id}`);
+    if (canvas) {
+      loadAndPixelate(canvas, `images/${pool.image}`, 7);
+    }
+  }
+}
+
+function buildCard(pool, checkDate) {
+  const sessions = getSessionsForDate(pool, checkDate);
+  const inSeason = isInSeason(pool, checkDate);
+  const isNow = !displayDate && inSeason && isOpenAtTime(sessions, nowMinutes());
+  const hasSessions = sessions.length > 0 && inSeason;
+  const isSeasonallyClosed = !inSeason;
+  const nm = !displayDate ? nowMinutes() : -1;
+
+  const card = document.createElement('div');
+  card.className = `card${isNow ? ' is-open' : ''}${isSeasonallyClosed ? ' is-closed-season' : ''}`;
+
+  // Image
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'card-img-wrap';
+  const canvas = document.createElement('canvas');
+  canvas.id = `canvas-${pool.id}`;
+  canvas.width = 400; canvas.height = 300;
+  canvas.className = 'pool-canvas';
+  const overlay = document.createElement('div');
+  overlay.className = 'img-overlay';
+  imgWrap.appendChild(canvas);
+  imgWrap.appendChild(overlay);
+
+  // Status badge
+  const badge = document.createElement('div');
+  if (isNow) {
+    badge.className = 'status-badge status-open';
+    badge.textContent = '● OPEN NOW';
+  } else if (isSeasonallyClosed) {
+    badge.className = 'status-badge status-season';
+    badge.textContent = 'SEASONAL';
+  } else {
+    badge.className = 'status-badge status-closed';
+    badge.textContent = hasSessions ? 'OPEN TODAY' : 'CLOSED';
+  }
+  imgWrap.appendChild(badge);
+  card.appendChild(imgWrap);
+
+  // Body
+  const body = document.createElement('div');
+  body.className = 'card-body';
+
+  const nameEl = document.createElement('div');
+  nameEl.className = 'pool-name';
+  nameEl.textContent = pool.name.toUpperCase();
+  body.appendChild(nameEl);
+
+  if (userLat !== null) {
+    const dist = distance(userLat, userLng, pool.lat, pool.lng);
+    const distEl = document.createElement('div');
+    distEl.className = 'distance';
+    distEl.textContent = `◈ ${dist.toFixed(1)} MI AWAY`;
+    body.appendChild(distEl);
+  }
+
+  const addrEl = document.createElement('div');
+  addrEl.className = 'pool-address';
+  addrEl.textContent = pool.address;
+  body.appendChild(addrEl);
+
+  if (isSeasonallyClosed && pool.seasonalNote) {
+    const noteEl = document.createElement('div');
+    noteEl.className = 'season-note';
+    noteEl.textContent = `⚑ ${pool.seasonalNote}`;
+    body.appendChild(noteEl);
+  } else if (sessions.length === 0) {
+    const noEl = document.createElement('div');
+    noEl.className = 'no-sessions';
+    noEl.textContent = pool.fallbackNote ? '⚐ SCHEDULE UNVERIFIED' : 'NO SESSIONS TODAY';
+    body.appendChild(noEl);
+  } else {
+    const label = document.createElement('div');
+    label.className = 'sessions-label';
+    label.textContent = displayDate ? `▸ ${fmtDate(checkDate)}` : '▸ TODAY';
+    body.appendChild(label);
+
+    const ul = document.createElement('ul');
+    ul.className = 'sessions';
+    for (const s of sessions) {
+      const li = document.createElement('li');
+      const isActive = nm >= 0 && nm >= parseTime(s.open) && nm < parseTime(s.close);
+      li.className = `session-item${isActive ? ' active-now' : ''}`;
+      li.innerHTML = `<span class="session-type">${s.label}</span><span class="session-time">${fmtTime(s.open)} – ${fmtTime(s.close)}</span>`;
+      ul.appendChild(li);
+    }
+    body.appendChild(ul);
+  }
+
+  card.appendChild(body);
+
+  // Footer
+  const footer = document.createElement('div');
+  footer.className = 'card-footer';
+  const link = document.createElement('a');
+  link.className = 'website-link';
+  link.href = pool.website;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.textContent = '↗ SCHEDULE';
+  const tag = document.createElement('span');
+  tag.className = `data-source-tag${pool.dataSource === 'live' ? ' live' : ''}`;
+  tag.textContent = pool.dataSource === 'live' ? '● LIVE' : '○ FALLBACK';
+  footer.appendChild(link);
+  footer.appendChild(tag);
+  card.appendChild(footer);
+
+  return card;
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const resp = await fetch('data/schedules.json');
+    const data = await resp.json();
+    pools = data.pools;
+    document.getElementById('loading').style.display = 'none';
+    renderCards();
+  } catch(e) {
+    document.getElementById('loading').textContent = 'ERROR LOADING SCHEDULE DATA';
+  }
+  initLocation();
+  // Re-render every minute to update "open now" state
+  setInterval(() => { if (pools && !displayDate) renderCards(); }, 60000);
+}
+
+init();
+</script>
+</body>
+</html>

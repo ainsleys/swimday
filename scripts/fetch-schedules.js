@@ -42,7 +42,7 @@ const POOL_META = {
     name: 'Strawberry Canyon',
     address: 'Centennial Dr, Berkeley, CA 94720',
     phone: '(510) 642-7796',
-    website: 'https://recsports.berkeley.edu',
+    website: 'https://recwell.berkeley.edu/facilities/strawberry-canyon-recreation-pool/',
     lat: 37.8759, lng: -122.2432,
     image: 'strawberry-canyon.png',
   },
@@ -56,10 +56,10 @@ const POOL_META = {
   },
   'roberts-pool': {
     name: "Roberts Pool",
-    address: '2601 Russell St, Berkeley, CA 94705',
-    phone: '(510) 981-5150',
-    website: 'https://berkeleyca.gov/community-services/parks-recreation',
-    lat: 37.8577, lng: -122.2598,
+    address: '11500 Skyline Blvd, Oakland, CA 94619',
+    phone: '(888) 327-2757',
+    website: 'https://www.ebparks.org/recreation/swimming/roberts',
+    lat: 37.8308, lng: -122.1663,
     image: 'roberts-pool.png',
   },
   'temescal': {
@@ -90,24 +90,19 @@ const FALLBACK_SCHEDULES = {
       sunday:    [{ label: 'Lap Swim', type: 'lap', open: '7:00am', close: '12:00pm' }],
     }
   },
-  // Source: UC Berkeley RecSports - seasonal outdoor pool (typically open May-Sept)
+  // Source: recwell.berkeley.edu — closed for season, reopens ~May 2026
   'strawberry-canyon': {
-    dataSource: 'fallback',
-    fallbackNote: 'Strawberry Canyon is a seasonal outdoor pool (typically May–September). Verify schedule at recsports.berkeley.edu or (510) 642-7796.',
-    schedule: {
-      monday:    [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:45am' }, { label: 'Open Swim', type: 'open', open: '12:00pm', close: '5:45pm' }],
-      tuesday:   [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:45am' }, { label: 'Open Swim', type: 'open', open: '12:00pm', close: '5:45pm' }],
-      wednesday: [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:45am' }, { label: 'Open Swim', type: 'open', open: '12:00pm', close: '5:45pm' }],
-      thursday:  [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:45am' }, { label: 'Open Swim', type: 'open', open: '12:00pm', close: '5:45pm' }],
-      friday:    [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:45am' }, { label: 'Open Swim', type: 'open', open: '12:00pm', close: '5:45pm' }],
-      saturday:  [{ label: 'Open Swim', type: 'open', open: '12:00pm', close: '4:45pm' }],
-      sunday:    [{ label: 'Open Swim', type: 'open', open: '12:00pm', close: '4:45pm' }],
-    }
+    dataSource: 'live',
+    seasonalStatus: 'closed',
+    seasonalNote: 'Closed for season. Reopens ~May 2026.',
+    seasonOpen: '2026-05-01',
+    fallbackNote: 'Seasonal outdoor pool (UC Berkeley). Check recwell.berkeley.edu for schedule when open.',
+    schedule: { monday:[], tuesday:[], wednesday:[], thursday:[], friday:[], saturday:[], sunday:[] },
   },
-  // Source: Berkeley Parks & Rec - King Pool is a seasonal outdoor pool (summer)
+  // Source: berkeleyca.gov — WAF-blocked, URL TBD
   'king-pool': {
     dataSource: 'fallback',
-    fallbackNote: 'King Pool is a seasonal outdoor pool (typically June–August). Verify at berkeleyca.gov or (510) 981-5150.',
+    fallbackNote: 'King Pool (City of Berkeley). Schedule URL not yet found — berkeleyca.gov is WAF-blocked. Verify at (510) 981-5150.',
     schedule: {
       monday:    [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
       tuesday:   [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
@@ -118,18 +113,21 @@ const FALLBACK_SCHEDULES = {
       sunday:    [{ label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
     }
   },
-  // Source: Berkeley Parks & Rec - Roberts Pool (Willard) outdoor seasonal
+  // Source: ebparks.org/recreation/swimming/roberts — seasonal EBPARKS outdoor pool
   'roberts-pool': {
-    dataSource: 'fallback',
-    fallbackNote: 'Roberts Pool is a seasonal outdoor pool (typically June–August). Verify at berkeleyca.gov or (510) 981-5150.',
+    dataSource: 'live',
+    seasonalStatus: 'closed',
+    seasonalNote: 'Closed for season. Opens May 16, 2026.',
+    seasonOpen: '2026-05-16',
+    fallbackNote: 'Roberts Pool (East Bay Regional Parks). Seasonal outdoor pool in Oakland hills.',
     schedule: {
-      monday:    [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
-      tuesday:   [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
-      wednesday: [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
-      thursday:  [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
-      friday:    [{ label: 'Lap Swim', type: 'lap', open: '6:00am', close: '8:00am' }, { label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
-      saturday:  [{ label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
-      sunday:    [{ label: 'Open Swim', type: 'open', open: '1:00pm', close: '4:45pm' }],
+      monday:    [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '4:00pm' }],
+      tuesday:   [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '4:00pm' }],
+      wednesday: [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '4:00pm' }],
+      thursday:  [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '4:00pm' }],
+      friday:    [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '4:00pm' }],
+      saturday:  [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '6:00pm' }],
+      sunday:    [{ label: 'Open Swim', type: 'open', open: '11:00am', close: '6:00pm' }],
     }
   },
 };
@@ -193,85 +191,57 @@ async function scrapeElCerrito(page) {
 }
 
 function buildElCerritoSchedule(text) {
-  // Parse the known column structure from El Cerrito's weekly PDF.
-  // The PDF always has these rows: FITNESS, MASTERS, GATORS, SWIM LESSONS
-  // We extract time tokens from each section and map them to days.
+  // The PDF text extracts as follows (section labels appear at the END due to PDF ordering):
+  // Line 0: header (day names)
+  // Line 1: FITNESS first slot - 7 tokens, one per day Mon-Sun
+  // Line 2: FITNESS second slot - 5 tokens for Mon,Tue,Wed,Thu,Sat (Fri/Sun have no second slot)
+  // Line 3: MASTERS - 7 tokens (NA for Sun)
+  // Line 4: GATORS - 7 tokens (NA for Sat/Sun)
+  // Line 5: SWIM LESSONS - 7 tokens (NA for most days)
+  // ... then section labels (FITNESS, MASTERS, GATORS, SWIM LESSONS) appear at end
 
   const days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
   const schedule = {};
   days.forEach(d => schedule[d] = []);
 
-  // Section definitions: [sectionName, regex to find section, label, type]
-  const sections = [
-    { name: 'fitness', re: /FITNESS([\s\S]*?)(?=MASTERS|GATORS|SWIM LESSONS)/i, label: 'Fitness Swim', type: 'fitness' },
-    { name: 'masters', re: /MASTERS([\s\S]*?)(?=GATORS|SWIM LESSONS|FITNESS)/i, label: 'Masters', type: 'masters' },
-    { name: 'gators',  re: /GATORS([\s\S]*?)(?=SWIM LESSONS|FITNESS|MASTERS)/i, label: 'Gators', type: 'gators' },
-    { name: 'lessons', re: /SWIM LESSONS([\s\S]*?)(?=FITNESS|MASTERS|GATORS|$)/i, label: 'Swim Lessons', type: 'lessons' },
+  // Extract all lines that contain time patterns
+  const timeRe = /(\d+(?::\d+)?(?:am|pm)\s*[-–]\s*\d+(?::\d+)?(?:am|pm)|\bNA\b)/gi;
+  const dataLines = text.split('\n')
+    .map(l => l.trim())
+    .filter(l => /\d+(?::\d+)?(?:am|pm)/i.test(l));
+
+  // Row definitions: [label, type, dayIndices]
+  // dayIndices maps each token to a day index (0=Mon ... 6=Sun)
+  const rowDefs = [
+    { label: 'Fitness Swim', type: 'fitness', indices: [0,1,2,3,4,5,6] },    // row 0: 7 tokens
+    { label: 'Fitness Swim', type: 'fitness', indices: [0,1,2,3,5] },          // row 1: 5 tokens (Mon-Thu + Sat)
+    { label: 'Masters',      type: 'masters', indices: [0,1,2,3,4,5,6] },    // row 2: 7 tokens
+    { label: 'Gators',       type: 'gators',  indices: [0,1,2,3,4,5,6] },    // row 3: 7 tokens
+    { label: 'Swim Lessons', type: 'lessons', indices: [0,1,2,3,4,5,6] },    // row 4: 7 tokens
   ];
 
-  const timeRe = /(\d+(?::\d+)?(?:am|pm)\s*[-–]\s*\d+(?::\d+)?(?:am|pm)|\bNA\b)/gi;
+  dataLines.forEach((line, rowIdx) => {
+    if (rowIdx >= rowDefs.length) return;
+    const { label, type, indices } = rowDefs[rowIdx];
+    const tokens = [...line.matchAll(timeRe)].map(m => m[0].replace('–','-').replace(/\s/g,''));
 
-  for (const { re, label, type } of sections) {
-    const match = text.match(re);
-    if (!match) continue;
-    const chunk = match[1];
-    const times = [...chunk.matchAll(timeRe)].map(m => m[0].replace('–','-').replace(/\s/g,''));
-
-    // Map times to days. Count: El Cerrito pattern has 7 or more tokens.
-    // Fitness has 2 slots Mon–Thu, 1 Fri, 2 Sat, 1 Sun = 11 tokens
-    // Others typically have 1 per day = 7 tokens, or with NA substitutions
-    const mapped = mapTimesToDays(times);
-    mapped.forEach(({ day, open, close }) => {
-      schedule[day].push({ label, type, open, close });
+    tokens.forEach((tok, i) => {
+      if (i >= indices.length || tok === 'NA') return;
+      const dayIdx = indices[i];
+      const parts = tok.split('-');
+      if (parts.length !== 2) return;
+      schedule[days[dayIdx]].push({ label, type, open: normT(parts[0]), close: normT(parts[1]) });
     });
-  }
+  });
 
   return schedule;
 }
 
-function mapTimesToDays(times) {
-  const days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-  const result = [];
-
-  if (times.length === 7) {
-    days.forEach((day, i) => {
-      if (times[i] !== 'NA') {
-        const [open, close] = times[i].split('-');
-        result.push({ day, open, close });
-      }
-    });
-  } else if (times.length >= 9) {
-    // Multi-slot days: try to figure out which days have 2 slots
-    // Common pattern: Mon-Thu = 2 slots, Fri = 1, Sat = 2, Sun = 1
-    const slots = [2,2,2,2,1,2,1]; // 11 total for fitness
-    const alt   = [1,1,1,1,1,2,1]; // 8 total
-    const pattern = times.length === 11 ? slots : (times.length === 8 ? alt : null);
-
-    if (pattern) {
-      let i = 0;
-      days.forEach((day, di) => {
-        for (let s = 0; s < pattern[di]; s++) {
-          if (i < times.length && times[i] !== 'NA') {
-            const [open, close] = times[i].split('-');
-            result.push({ day, open, close });
-          }
-          i++;
-        }
-      });
-    } else {
-      // Fallback: assign first 7 non-NA entries to days
-      let i = 0;
-      for (const day of days) {
-        while (i < times.length && times[i] === 'NA') i++;
-        if (i < times.length) {
-          const [open, close] = times[i++].split('-');
-          result.push({ day, open, close });
-        }
-      }
-    }
-  }
-
-  return result;
+function normT(t) {
+  t = t.trim().toLowerCase().replace(/\s/g,'');
+  // Ensure minutes: "7am" → "7:00am"
+  if (!t.includes(':')) t = t.replace(/^(\d+)(am|pm)$/, '$1:00$2');
+  return t;
 }
 
 // ─── Albany Aquatic Center scraper ──────────────────────────────────────────
