@@ -546,7 +546,9 @@ function buildCard(pool,date){
       const active=nm>=0&&nm>=o&&nm<c;
       const li=document.createElement('li');
       li.className='session-row'+(active?' now':'');
-      li.innerHTML=`<span class="session-name">${s.label}</span><span class="session-time">${fmtTime(s.open)} \u2013 ${fmtTime(s.close)}</span>`;
+      const sn=document.createElement('span');sn.className='session-name';sn.textContent=s.label;
+      const st=document.createElement('span');st.className='session-time';st.textContent=`${fmtTime(s.open)} \u2013 ${fmtTime(s.close)}`;
+      li.appendChild(sn);li.appendChild(st);
       ul.appendChild(li);
     });
     sec.appendChild(ul);
