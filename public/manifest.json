@@ -2,7 +2,7 @@
   "name": "Swim Day — East Bay Pool Schedules",
   "short_name": "Swim Day",
   "description": "Live swim schedules for East Bay pools",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#3c0a0a",
   "theme_color": "#f47a1a",

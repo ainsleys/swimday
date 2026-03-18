@@ -1,10 +1,10 @@
-const CACHE = 'swimday-v1';
+const CACHE = 'swimday-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/data/schedules.json',
-  '/fonts/boecklins-universe.woff',
+  './',
+  './index.html',
+  './manifest.json',
+  './data/schedules.json',
+  './fonts/boecklins-universe.woff',
 ];
 
 self.addEventListener('install', e => {
