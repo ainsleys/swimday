@@ -263,9 +263,9 @@ input[type="date"] {
 </div>
 
 <div class="install-bar" id="install-bar" style="display:none">
-  <span>Add Swim Day to your home screen</span>
-  <button onclick="installApp()">Install</button>
-  <button onclick="this.parentElement.style.display='none'">&times;</button>
+  <span class="install-msg">Add Swim Day to your home screen</span>
+  <button onclick="installApp()" id="install-btn">Install</button>
+  <button onclick="dismissInstall()">&times;</button>
 </div>
 
 <footer class="app-footer">
@@ -554,17 +554,41 @@ let deferredPrompt;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  const bar = document.getElementById('install-bar');
-  if (bar) bar.style.display = 'flex';
+  showInstallBar('android');
 });
 
+function showInstallBar(type) {
+  const bar = document.getElementById('install-bar');
+  if (!bar || localStorage.getItem('install-dismissed')) return;
+  const msg = bar.querySelector('.install-msg');
+  if (type === 'ios') {
+    msg.innerHTML = 'Add Swim Day: tap <span style="font-size:0.75rem">&#x2191;</span> <strong>Share</strong> then <strong>Add to Home Screen</strong>';
+    const btn = document.getElementById('install-btn');
+    if (btn) btn.style.display = 'none';
+  }
+  bar.style.display = 'flex';
+}
+
 function installApp() {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(() => {
-    deferredPrompt = null;
-    document.getElementById('install-bar').style.display = 'none';
-  });
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      deferredPrompt = null;
+      document.getElementById('install-bar').style.display = 'none';
+    });
+  }
+}
+
+function dismissInstall() {
+  document.getElementById('install-bar').style.display = 'none';
+  localStorage.setItem('install-dismissed', '1');
+}
+
+// iOS detection — no beforeinstallprompt, so show manual instructions
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isStandalone = window.navigator.standalone === true;
+if (isIOS && !isStandalone) {
+  showInstallBar('ios');
 }
 </script>
 </body>
