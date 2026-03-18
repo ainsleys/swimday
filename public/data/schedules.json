@@ -625,6 +625,12 @@
       "dataSource": "live",
       "sourceUrl": "https://berkeleyca.gov/sites/default/files/2026-02/King%20Pool%20Schedule%20Spring%202026%203.2-6.7.pdf",
       "dateRange": "March 2 – June 7, 2026",
+      "closedDates": [
+        { "start": "2026-03-30", "reason": "City holiday" },
+        { "start": "2026-05-18", "reason": "City holiday" },
+        { "start": "2026-05-25", "reason": "City holiday" },
+        { "start": "2026-06-06", "end": "2026-06-07", "reason": "Pre-Summer staff training" }
+      ],
       "schedule": {
         "monday": [
           { "label": "Masters", "type": "masters", "open": "6:00am", "close": "7:30am" },

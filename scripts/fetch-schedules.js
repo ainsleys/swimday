@@ -48,10 +48,10 @@ const POOL_META = {
   },
   'king-pool': {
     name: 'King Pool',
-    address: '1033 Allston Way, Berkeley, CA 94710',
-    phone: '(510) 981-5150',
+    address: '1700 Hopkins St, Berkeley, CA 94707',
+    phone: '(510) 981-5105',
     website: 'https://berkeleyca.gov/community-services/parks-recreation',
-    lat: 37.8672, lng: -122.2993,
+    lat: 37.8793, lng: -122.2737,
     image: 'king-pool.png',
   },
   'roberts-pool': {

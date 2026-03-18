@@ -123,6 +123,13 @@ input[type="date"] {
   box-shadow: 0 1px 8px rgba(0,0,0,0.12);
 }
 
+.card.is-seasonal {
+  background: #ede8e2;
+  opacity: 0.75;
+}
+.card.is-seasonal .card-name { color: #887870; }
+.card.is-seasonal .status-pill { opacity: 0.9; }
+
 /* ── Card header ── */
 .card-header {
   padding: 0.6rem 0.7rem 0.35rem;
@@ -359,8 +366,14 @@ function haversine(a,b,c,d) {
   return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
 }
 function inSeason(p,d) { return !p.seasonOpen || d>=new Date(p.seasonOpen); }
+function isClosedDate(p,d) {
+  if (!p.closedDates) return false;
+  const ds = d.toISOString().split('T')[0];
+  return p.closedDates.some(c => ds >= c.start && ds <= (c.end || c.start));
+}
 function sessionsFor(p,d) {
   if (!inSeason(p,d)) return [];
+  if (isClosedDate(p,d)) return [];
   return (p.schedule&&p.schedule[dayOf(d)])||[];
 }
 function mergedSessions(ss) {
@@ -451,10 +464,11 @@ function render(){
 function buildCard(pool,date){
   const raw=sessionsFor(pool,date),ss=mergedSessions(raw);
   const isNow=openNow(pool),isSeason=!inSeason(pool,date);
+  const isClosed=isClosedDate(pool,date);
   const hasSessions=ss.length>0,nm=viewDate?-1:nowMins();
 
   const card=document.createElement('div');
-  card.className='card';
+  card.className='card'+(isSeason?' is-seasonal':'');
 
   // Header: name + pill
   const hdr=document.createElement('div');hdr.className='card-header';
@@ -465,6 +479,7 @@ function buildCard(pool,date){
   const pill=document.createElement('span');
   if(isNow){pill.className='status-pill pill-now';pill.textContent='Open Now';}
   else if(isSeason){pill.className='status-pill pill-season';pill.textContent='Seasonal';}
+  else if(isClosed){pill.className='status-pill pill-closed';pill.textContent='Closed — Holiday';}
   else if(hasSessions){pill.className='status-pill pill-today';pill.textContent=viewDate?'Open':'Open Today';}
   else{pill.className='status-pill pill-closed';pill.textContent='Closed';}
   hdr.appendChild(pill);
@@ -483,6 +498,15 @@ function buildCard(pool,date){
     const sp=document.createElement('span');
     sp.textContent=pool.seasonalNote||'Closed for season';
     detail.appendChild(sp);
+  } else if(isClosed){
+    // Find the matching closure reason
+    const ds=date.toISOString().split('T')[0];
+    const c=pool.closedDates.find(c=>ds>=c.start&&ds<=(c.end||c.start));
+    if(c){
+      const sp=document.createElement('span');
+      sp.textContent=c.reason||'Closed for holiday';
+      detail.appendChild(sp);
+    }
   } else if(hasSessions&&!viewDate){
     let next=null;
     for(const s of raw){const o=parseTime(s.open);if(o>nm&&(next===null||o<next.m))next={m:o,t:s.open};}
