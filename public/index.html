@@ -4,464 +4,338 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>SWIM DAY</title>
+<meta name="theme-color" content="#f47a1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Swim Day">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amarante&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Boecklins Universe';
+  src: url('fonts/boecklins-universe.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
-  --bg:          #110b05;
-  --bg2:         #1c1308;
-  --gold:        #c8890e;
-  --gold-bright: #e8aa20;
-  --gold-dim:    #7a5508;
-  --amber:       #d4720a;
-  --cream:       #f0e4c2;
-  --cream-dark:  #d8ccaa;
-  --ink:         #1e1208;
-  --ink-mid:     #3a2810;
-  --open-g:      #2a6e40;
-  --open-g-bg:   #e8f4ec;
-  --closed-fg:   #887060;
-  --season-fg:   #a05820;
-  --session-hl:  #fff8e0;
-  --session-hl-border: #c8890e;
-  --font-fantasy: 'Cinzel Decorative', Georgia, serif;
-  --font-serif:   'Cinzel', Georgia, serif;
+  --orange: #f47a1a;
+  --orange-light: #ff9a40;
+  --orange-dark: #c45a10;
+  --white: #ffffff;
+  --black: #111111;
+  --gray: #888888;
+  --gray-light: #cccccc;
+  --now-bg: rgba(244,122,26,0.10);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { font-size: 16px; }
 
 body {
-  background: var(--bg);
-  font-family: var(--font-serif);
+  font-family: 'Fraunces', Georgia, serif;
   min-height: 100vh;
-  color: var(--ink);
+  color: var(--black);
   -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
 }
 
-/* Warm top glow */
-body::before {
-  content: '';
+#sunset-bg {
   position: fixed;
-  top: 0; left: 0; right: 0; height: 40vh;
-  background: radial-gradient(ellipse at 50% -10%, rgba(200,137,14,0.18) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 /* ── Header ── */
 header {
+  text-align: center;
+  padding: 1.8rem 1rem 0.8rem;
   position: relative;
   z-index: 1;
-  text-align: center;
-  padding: 2rem 1rem 1rem;
 }
-
 .title {
-  font-family: var(--font-fantasy);
-  font-size: clamp(1.6rem, 8vw, 3.2rem);
-  color: var(--gold-bright);
-  letter-spacing: 0.06em;
-  text-shadow: 0 2px 20px rgba(200,137,14,0.5), 0 0 60px rgba(200,137,14,0.2);
-  line-height: 1.1;
+  font-family: 'Boecklins Universe', 'Amarante', Georgia, serif;
+  font-size: clamp(2rem, 10vw, 3.8rem);
+  font-weight: normal;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  line-height: 1;
 }
-
-.subtitle {
-  font-family: var(--font-serif);
-  font-size: 0.6rem;
-  color: var(--gold-dim);
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  margin-top: 0.4rem;
-}
-
 .header-meta {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-top: 0.9rem;
-  flex-wrap: wrap;
-  align-items: center;
+  display: flex; justify-content: center; gap: 1rem;
+  margin-top: 0.5rem; flex-wrap: wrap; align-items: center;
 }
-
 .clock {
-  font-size: 0.7rem;
-  color: var(--amber);
-  letter-spacing: 0.12em;
-  font-variant-numeric: tabular-nums;
+  font-size: 0.7rem; color: rgba(255,255,255,0.85);
+  letter-spacing: 0.12em; font-variant-numeric: tabular-nums; font-weight: 500;
 }
-
 .loc-badge {
-  font-size: 0.58rem;
-  color: var(--gold-dim);
-  letter-spacing: 0.06em;
+  font-size: 0.55rem; color: rgba(255,255,255,0.5); letter-spacing: 0.05em;
 }
 
 /* Date bar */
 .date-bar {
-  display: flex;
-  justify-content: center;
-  gap: 0.6rem;
-  margin: 0.9rem auto 0;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 0 1rem;
+  display: flex; justify-content: center; gap: 0.4rem;
+  margin: 0.6rem auto 0; flex-wrap: wrap; align-items: center;
 }
-
 .btn {
-  font-family: var(--font-serif);
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  padding: 0.45rem 0.9rem;
-  border: 1.5px solid var(--gold-dim);
-  background: transparent;
-  color: var(--gold);
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.15s;
+  font-family: inherit; font-size: 0.55rem; font-weight: 600;
+  letter-spacing: 0.08em; padding: 0.35rem 0.75rem;
+  border: 1.5px solid rgba(255,255,255,0.4); border-radius: 4px;
+  background: transparent; color: rgba(255,255,255,0.85);
+  cursor: pointer; text-transform: uppercase; transition: all 0.15s;
 }
 .btn:hover, .btn.active {
-  background: var(--gold);
-  color: var(--bg);
-  border-color: var(--gold);
+  background: var(--white); color: var(--black); border-color: var(--white);
 }
-
-.date-input-wrap { display: none; align-items: center; gap: 0.5rem; }
+.date-input-wrap { display: none; align-items: center; gap: 0.35rem; }
 .date-input-wrap.show { display: flex; }
-
 input[type="date"] {
-  font-family: var(--font-serif);
-  font-size: 0.6rem;
-  padding: 0.4rem 0.6rem;
-  background: var(--bg2);
-  border: 1.5px solid var(--gold-dim);
-  color: var(--amber);
-  cursor: pointer;
-  color-scheme: dark;
+  font-family: inherit; font-size: 0.55rem; padding: 0.3rem 0.5rem;
+  background: rgba(0,0,0,0.3); border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 4px; color: var(--white); cursor: pointer; color-scheme: dark;
 }
-
 .viewing-label {
-  font-size: 0.55rem;
-  color: var(--amber);
-  letter-spacing: 0.08em;
-  text-align: center;
-  margin-top: 0.5rem;
-  display: none;
+  font-size: 0.52rem; color: rgba(255,255,255,0.7); letter-spacing: 0.06em;
+  text-align: center; margin-top: 0.35rem; display: none; font-weight: 500;
 }
 .viewing-label.show { display: block; }
 
-/* ── Cards container ── */
+/* ── Cards ── */
 .cards {
-  position: relative;
-  z-index: 1;
-  padding: 1.2rem 0.75rem 3rem;
-  max-width: 700px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  position: relative; z-index: 1;
+  padding: 0.8rem 0.5rem 3rem;
+  max-width: 460px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 0.5rem;
 }
 
-/* ── Pool card ── */
 .card {
-  background: var(--cream);
-  border: 1px solid var(--cream-dark);
+  background: var(--white);
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  transition: box-shadow 0.2s;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.12);
 }
 
-.card.is-open-now {
-  box-shadow: 0 2px 20px rgba(200,137,14,0.35);
-  border-color: var(--gold-dim);
+/* ── Card header ── */
+.card-header {
+  padding: 0.6rem 0.7rem 0.35rem;
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 0.5rem;
 }
-
-/* Collapsed closed/seasonal card */
-.card.collapsed .card-expand-area { display: none; }
-
-/* Card header row (always visible) */
-.card-head {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0.85rem;
-  cursor: pointer;
-  user-select: none;
-}
-
-.card-thumb {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  overflow: hidden;
-  background: var(--ink);
-}
-
-.card-thumb img {
-  width: 52px;
-  height: 52px;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-}
-
-.card-head-info { flex: 1; min-width: 0; }
-
-.card-pool-name {
-  font-family: var(--font-serif);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-status-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 0.25rem;
-  flex-wrap: wrap;
+.card-name {
+  font-size: 0.82rem; font-weight: 700; color: var(--black); line-height: 1.25;
 }
 
 .status-pill {
-  font-size: 0.5rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.5rem;
-  border-radius: 2px;
-  font-weight: 600;
+  flex-shrink: 0; font-size: 0.48rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.18rem 0.5rem; border-radius: 3px;
+  white-space: nowrap; margin-top: 0.1rem;
 }
-
-.pill-open {
-  background: var(--open-g-bg);
-  color: var(--open-g);
-  border: 1px solid #b8dfca;
+.pill-now { background: var(--orange); color: var(--white); }
+.pill-today {
+  background: rgba(244,122,26,0.08); color: var(--orange-dark);
+  border: 1px solid rgba(244,122,26,0.2);
 }
-.pill-open::before { content: '●  '; }
+.pill-closed { background: #f0f0f0; color: var(--gray); }
+.pill-season { background: #fff0e0; color: #a05820; }
 
-.pill-open-today {
-  background: #fff8e8;
-  color: #8a6010;
-  border: 1px solid #e8d090;
+/* ── Status detail line ── */
+.card-detail {
+  padding: 0 0.7rem 0.5rem; font-size: 0.52rem;
+  color: var(--gray); letter-spacing: 0.02em;
+  display: flex; gap: 0.6rem; align-items: center;
 }
+.card-detail .now-text { color: var(--orange-dark); font-weight: 600; }
+.card-detail .dist { margin-left: auto; }
 
-.pill-closed {
-  background: #f0ece8;
-  color: var(--closed-fg);
-  border: 1px solid #d8d0c8;
-}
-
-.pill-season {
-  background: #fdf0e8;
-  color: var(--season-fg);
-  border: 1px solid #e8c8a0;
-}
-
-.card-dist {
-  font-size: 0.48rem;
-  color: var(--closed-fg);
-  letter-spacing: 0.06em;
-}
-
-.card-chevron {
-  flex-shrink: 0;
-  font-size: 0.55rem;
-  color: var(--gold-dim);
-  transition: transform 0.2s;
-  padding-left: 0.3rem;
-}
-.card.collapsed .card-chevron { transform: rotate(-90deg); }
-
-/* ── Expanded card area ── */
-.card-expand-area {
-  border-top: 1px solid var(--cream-dark);
-}
-
-/* Full dot-matrix image */
-.card-img-full {
-  width: 100%;
-  position: relative;
-  background: var(--ink);
-  line-height: 0;
-}
-
-.card-img-full img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-}
-
-.card-img-full .img-label {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(to top, rgba(17,11,5,0.7), transparent);
-  padding: 1.2rem 0.85rem 0.6rem;
-  font-family: var(--font-fantasy);
-  font-size: clamp(0.7rem, 3vw, 1rem);
-  color: var(--gold-bright);
-  text-shadow: 0 1px 8px rgba(0,0,0,0.8);
-  letter-spacing: 0.06em;
-}
-
-/* Sessions */
-.card-body {
-  padding: 0.85rem;
-}
-
-.sessions-today-label {
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
+/* ── Sessions ── */
+.card-sessions { padding: 0 0.7rem 0.55rem; }
 .sessions-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.28rem;
+  list-style: none; display: flex; flex-direction: column; gap: 1px;
 }
-
 .session-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.32rem 0.5rem;
-  border-left: 3px solid var(--cream-dark);
-  font-size: 0.6rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.28rem 0.45rem; border-radius: 4px; font-size: 0.56rem;
+}
+.session-row.now { background: var(--now-bg); }
+.session-name { color: #555; }
+.session-time {
+  color: var(--black); font-weight: 600; letter-spacing: 0.02em;
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.session-row.now .session-name { color: var(--orange-dark); }
+.session-row.now .session-time { color: var(--orange-dark); font-weight: 700; }
+
+.card-note {
+  padding: 0.15rem 0.7rem 0.5rem; font-size: 0.52rem;
+  color: var(--gray); line-height: 1.5;
 }
 
-.session-row.now {
-  border-left-color: var(--session-hl-border);
-  background: var(--session-hl);
-}
-
-.session-name { color: var(--ink-mid); }
-.session-time { color: var(--ink); font-weight: 600; letter-spacing: 0.03em; white-space: nowrap; }
-.session-row.now .session-name,
-.session-row.now .session-time { color: #7a4a00; }
-
-.no-sessions-msg {
-  font-size: 0.58rem;
-  color: var(--closed-fg);
-  padding: 0.4rem 0;
-  letter-spacing: 0.04em;
-  line-height: 1.7;
-}
-
-.season-msg {
-  font-size: 0.58rem;
-  color: var(--season-fg);
-  padding: 0.4rem 0;
-  letter-spacing: 0.04em;
-  line-height: 1.7;
-}
-
-/* Card footer */
+/* ── Card footer ── */
 .card-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.55rem 0.85rem;
-  border-top: 1px solid var(--cream-dark);
-  margin-top: 0.5rem;
+  padding: 0.35rem 0.7rem; border-top: 1px solid #f0f0f0;
+  display: flex; justify-content: space-between; align-items: center;
 }
-
 .schedule-link {
-  font-size: 0.52rem;
-  color: var(--gold);
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.46rem; font-weight: 600; color: var(--orange);
+  text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
 }
-.schedule-link:hover { color: var(--amber); }
-
+.schedule-link:hover { color: var(--orange-dark); }
 .data-tag {
-  font-size: 0.4rem;
-  color: var(--cream-dark);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 0.38rem; color: var(--gray-light);
+  letter-spacing: 0.04em; text-transform: uppercase;
 }
-.data-tag.live { color: #a0c8a0; }
+.data-tag.live { color: #88b888; }
 
 /* ── Footer ── */
 .app-footer {
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 0.5rem;
-  color: var(--gold-dim);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 1;
+  text-align: center; padding: 1rem;
+  font-size: 0.45rem; font-weight: 500;
+  color: rgba(0,0,0,0.25); letter-spacing: 0.08em;
+  text-transform: uppercase; position: relative; z-index: 1;
 }
-.app-footer a { color: var(--gold-dim); text-decoration: none; }
-.app-footer a:hover { color: var(--gold); }
+.app-footer a { color: rgba(0,0,0,0.3); text-decoration: none; }
+.app-footer a:hover { color: var(--orange); }
 
-/* Loading */
 .loading {
-  text-align: center;
-  padding: 4rem 2rem;
-  font-family: var(--font-serif);
-  font-size: 0.8rem;
-  color: var(--gold-dim);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 1;
+  text-align: center; padding: 4rem 2rem;
+  font-size: 0.8rem; font-weight: 600;
+  color: rgba(255,255,255,0.6); letter-spacing: 0.15em;
+  text-transform: uppercase; position: relative; z-index: 1;
 }
 
-/* Desktop: widen a bit */
-@media (min-width: 700px) {
-  .cards { padding: 1.5rem 1rem 3rem; }
+.install-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--white); color: var(--black);
+  font-size: 0.55rem; font-weight: 500;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
 }
+.install-bar span { flex: 1; }
+.install-bar button {
+  font-family: inherit; font-size: 0.5rem; font-weight: 700;
+  padding: 0.3rem 0.7rem; border-radius: 4px; cursor: pointer;
+  border: none; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.install-bar button:first-of-type {
+  background: var(--orange); color: var(--white);
+}
+.install-bar button:last-of-type {
+  background: transparent; color: var(--gray); font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+}
+
+@media (min-width: 720px) { .cards { max-width: 520px; } }
 </style>
 </head>
 <body>
 
+<canvas id="sunset-bg" aria-hidden="true"></canvas>
+
 <header>
   <div class="title">Swim Day</div>
-  <div class="subtitle">East Bay Aquatic Guide</div>
   <div class="header-meta">
     <div class="clock" id="clock">--:-- --</div>
-    <div class="loc-badge" id="loc-badge">◎ Locating…</div>
+    <div class="loc-badge" id="loc-badge"></div>
   </div>
   <div class="date-bar">
     <button class="btn active" id="today-btn" onclick="setToday()">Today</button>
     <button class="btn" id="future-btn" onclick="toggleFuture()">Future Date</button>
     <div class="date-input-wrap" id="date-wrap">
       <input type="date" id="future-input" onchange="onDateChange()">
-      <button class="btn" onclick="setToday()">✕</button>
+      <button class="btn" onclick="setToday()">&times;</button>
     </div>
   </div>
   <div class="viewing-label" id="viewing-label"></div>
 </header>
 
 <div id="cards-root">
-  <div class="loading" id="loading">Loading…</div>
+  <div class="loading" id="loading">Loading&hellip;</div>
+</div>
+
+<div class="install-bar" id="install-bar" style="display:none">
+  <span>Add Swim Day to your home screen</span>
+  <button onclick="installApp()">Install</button>
+  <button onclick="this.parentElement.style.display='none'">&times;</button>
 </div>
 
 <footer class="app-footer">
-  Swim Day &nbsp;·&nbsp; East Bay CA &nbsp;·&nbsp;
-  <a href="https://github.com/ainsleys/swimday" target="_blank" rel="noopener">github</a>
+  Swim Day &nbsp;&middot;&nbsp; East Bay CA &nbsp;&middot;&nbsp;
+  <a href="https://github.com/ainsleys/swimday" target="_blank" rel="noopener">GitHub</a>
 </footer>
 
 <script>
-// ── State ───────────────────────────────────────────────────────────────────
-let pools = null;
-let userLat = null, userLng = null;
-let viewDate = null; // null = today
+// ── Pixel sunset background ──────────────────────────────────────────────────
+function renderSunset() {
+  const canvas = document.getElementById('sunset-bg');
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+  const PX = 5;
+  const sw = Math.ceil(W / PX);
+  const sh = Math.ceil(H / PX);
 
-// ── Utilities ───────────────────────────────────────────────────────────────
+  canvas.width = sw;
+  canvas.height = sh;
+
+  const ctx = canvas.getContext('2d');
+  const img = ctx.createImageData(sw, sh);
+  const d = img.data;
+
+  // Gradient: dark red → red → orange → amber → yellow (warm sunset)
+  const stops = [
+    [0.00,  50,  4,  4],
+    [0.10,  95, 10,  8],
+    [0.20, 155, 18, 10],
+    [0.30, 200, 30, 12],
+    [0.40, 225, 55, 15],
+    [0.50, 238, 88, 18],
+    [0.60, 242,125, 22],
+    [0.70, 240,165, 28],
+    [0.80, 238,200, 38],
+    [0.90, 240,225, 52],
+    [1.00, 248,242, 68],
+  ];
+
+  for (let y = 0; y < sh; y++) {
+    const t = y / sh;
+    let si = 0;
+    while (si < stops.length - 2 && stops[si + 1][0] < t) si++;
+    const s0 = stops[si], s1 = stops[si + 1];
+    const f = s1[0] > s0[0] ? (t - s0[0]) / (s1[0] - s0[0]) : 0;
+
+    for (let x = 0; x < sw; x++) {
+      const noise = (Math.random() - 0.5) * 0.3;
+      const ff = Math.max(0, Math.min(1, f + noise));
+      const i = (y * sw + x) * 4;
+      d[i]     = Math.round(s0[1] + (s1[1] - s0[1]) * ff);
+      d[i + 1] = Math.round(s0[2] + (s1[2] - s0[2]) * ff);
+      d[i + 2] = Math.round(s0[3] + (s1[3] - s0[3]) * ff);
+      d[i + 3] = 255;
+    }
+  }
+
+  ctx.putImageData(img, 0, 0);
+}
+
+renderSunset();
+let _sunsetTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(_sunsetTimer);
+  _sunsetTimer = setTimeout(renderSunset, 200);
+});
+
+// ── App state ────────────────────────────────────────────────────────────────
+let pools = null, userLat = null, userLng = null, viewDate = null;
+
 function parseTime(s) {
   if (!s) return -1;
   const m = s.toLowerCase().replace(/\s/g,'').match(/^(\d+):?(\d*)(am|pm)$/);
@@ -471,314 +345,227 @@ function parseTime(s) {
   if (m[3]==='am' && h===12) h=0;
   return h*60+min;
 }
-
-function nowMins() {
-  const d=new Date(); return d.getHours()*60+d.getMinutes();
-}
-
-function dayOf(date) {
-  return ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][date.getDay()];
-}
-
-function fmtTime(s) {
-  // "7:00am" → "7:00 AM"
-  return s.replace(':00','').toUpperCase().replace(/([AP]M)$/,' $1').trim();
-}
-
+function nowMins() { const d=new Date(); return d.getHours()*60+d.getMinutes(); }
+function dayOf(d) { return ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][d.getDay()]; }
+function fmtTime(s) { return s.toUpperCase().replace(/([AP]M)$/,' $1').trim(); }
 function fmtDate(d) {
-  const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${DAYS[d.getDay()]} ${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  const D=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${D[d.getDay()]} ${M[d.getMonth()]} ${d.getDate()}`;
 }
-
-function haversine(lat1,lon1,lat2,lon2) {
-  const R=3959, dl=(lat2-lat1)*Math.PI/180, dL=(lon2-lon1)*Math.PI/180;
-  const a=Math.sin(dl/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dL/2)**2;
-  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+function haversine(a,b,c,d) {
+  const R=3959,dl=(c-a)*Math.PI/180,dL=(d-b)*Math.PI/180;
+  const x=Math.sin(dl/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dL/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
 }
-
-// ── Time/Season logic ────────────────────────────────────────────────────────
-function inSeason(pool, date) {
-  if (!pool.seasonOpen) return true;
-  return date >= new Date(pool.seasonOpen);
+function inSeason(p,d) { return !p.seasonOpen || d>=new Date(p.seasonOpen); }
+function sessionsFor(p,d) {
+  if (!inSeason(p,d)) return [];
+  return (p.schedule&&p.schedule[dayOf(d)])||[];
 }
-
-function sessionsFor(pool, date) {
-  if (!inSeason(pool, date)) return [];
-  const day = dayOf(date);
-  return (pool.schedule && pool.schedule[day]) || [];
+function mergedSessions(ss) {
+  if (!ss.length) return [];
+  const sorted=[...ss].sort((a,b)=>parseTime(a.open)-parseTime(b.open));
+  const out=[{...sorted[0]}];
+  for (let i=1;i<sorted.length;i++) {
+    const prev=out[out.length-1],cur=sorted[i];
+    if (cur.label===prev.label&&parseTime(cur.open)<=parseTime(prev.close)+15) {
+      if (parseTime(cur.close)>parseTime(prev.close)) prev.close=cur.close;
+    } else out.push({...cur});
+  }
+  return out;
 }
-
-function openNow(pool) {
+function openNow(p) {
   if (viewDate) return false;
-  const ss = sessionsFor(pool, new Date());
-  if (!ss.length) return false;
-  const nm = nowMins();
-  return ss.some(s => nm >= parseTime(s.open) && nm < parseTime(s.close));
+  const ss=sessionsFor(p,new Date()); if(!ss.length) return false;
+  const nm=nowMins();
+  return ss.some(s=>nm>=parseTime(s.open)&&nm<parseTime(s.close));
 }
 
-function openToday(pool, date) {
-  return sessionsFor(pool, date).length > 0;
-}
-
-
-// ── Clock ────────────────────────────────────────────────────────────────────
 function updateClock() {
-  const d=new Date();
-  let h=d.getHours(), m=d.getMinutes(), s=d.getSeconds();
+  const d=new Date(); let h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
   const ap=h>=12?'PM':'AM'; h=h%12||12;
-  document.getElementById('clock').textContent =
+  document.getElementById('clock').textContent=
     `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ap}`;
 }
 setInterval(updateClock,1000); updateClock();
 
-// ── Date controls ────────────────────────────────────────────────────────────
-function setToday() {
-  viewDate = null;
+function setToday(){
+  viewDate=null;
   document.getElementById('today-btn').classList.add('active');
   document.getElementById('future-btn').classList.remove('active');
   document.getElementById('date-wrap').classList.remove('show');
   document.getElementById('viewing-label').classList.remove('show');
-  if (pools) render();
+  if(pools) render();
 }
-
-function toggleFuture() {
-  const wrap = document.getElementById('date-wrap');
-  if (wrap.classList.contains('show')) { setToday(); return; }
-  wrap.classList.add('show');
+function toggleFuture(){
+  const w=document.getElementById('date-wrap');
+  if(w.classList.contains('show')){setToday();return;}
+  w.classList.add('show');
   document.getElementById('future-btn').classList.add('active');
   document.getElementById('today-btn').classList.remove('active');
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('future-input').value = today;
-  document.getElementById('future-input').min = today;
+  const t=new Date().toISOString().split('T')[0];
+  document.getElementById('future-input').value=t;
+  document.getElementById('future-input').min=t;
   onDateChange();
 }
-
-function onDateChange() {
-  const v = document.getElementById('future-input').value;
-  if (!v) return;
-  const [y,mo,d] = v.split('-').map(Number);
-  viewDate = new Date(y, mo-1, d);
-  const lbl = document.getElementById('viewing-label');
-  lbl.textContent = `Showing  ${fmtDate(viewDate).toUpperCase()}`;
+function onDateChange(){
+  const v=document.getElementById('future-input').value; if(!v) return;
+  const[y,mo,d]=v.split('-').map(Number);
+  viewDate=new Date(y,mo-1,d);
+  const lbl=document.getElementById('viewing-label');
+  lbl.textContent=`Showing ${fmtDate(viewDate).toUpperCase()}`;
   lbl.classList.add('show');
-  if (pools) render();
+  if(pools) render();
+}
+function initGeo(){
+  if(!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(p=>{
+    userLat=p.coords.latitude;userLng=p.coords.longitude;
+    document.getElementById('loc-badge').textContent='Sorting by distance';
+    if(pools) render();
+  },()=>{},{timeout:8000});
 }
 
-// ── Geolocation ──────────────────────────────────────────────────────────────
-function initGeo() {
-  if (!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(p => {
-    userLat = p.coords.latitude;
-    userLng = p.coords.longitude;
-    document.getElementById('loc-badge').textContent = `◎ ${userLat.toFixed(2)}°N`;
-    if (pools) render();
-  }, () => {
-    document.getElementById('loc-badge').textContent = '';
-  }, { timeout: 8000 });
-}
-
-// ── Render ────────────────────────────────────────────────────────────────────
-function sortedPools() {
-  const arr = Object.values(pools);
-  // Sort: open now first, then by distance (or original order if no geo)
-  arr.sort((a, b) => {
-    const ao = openNow(a) ? 0 : 1, bo = openNow(b) ? 0 : 1;
-    if (ao !== bo) return ao - bo;
-    if (userLat !== null) {
-      return haversine(userLat, userLng, a.lat, a.lng)
-           - haversine(userLat, userLng, b.lat, b.lng);
-    }
+function sortedPools(){
+  const arr=Object.values(pools),date=viewDate||new Date();
+  arr.sort((a,b)=>{
+    const ao=openNow(a)?0:1,bo=openNow(b)?0:1;
+    if(ao!==bo) return ao-bo;
+    const at=sessionsFor(a,date).length>0?0:1,bt=sessionsFor(b,date).length>0?0:1;
+    if(at!==bt) return at-bt;
+    if(userLat!==null) return haversine(userLat,userLng,a.lat,a.lng)-haversine(userLat,userLng,b.lat,b.lng);
     return 0;
   });
   return arr;
 }
 
-function render() {
-  const date = viewDate || new Date();
-  const root = document.getElementById('cards-root');
-  root.innerHTML = '';
-  const wrap = document.createElement('div');
-  wrap.className = 'cards';
-
-  for (const pool of sortedPools()) {
-    wrap.appendChild(buildCard(pool, date));
-  }
+function render(){
+  const date=viewDate||new Date(),root=document.getElementById('cards-root');
+  root.innerHTML='';
+  const wrap=document.createElement('div');wrap.className='cards';
+  for(const p of sortedPools()) wrap.appendChild(buildCard(p,date));
   root.appendChild(wrap);
 }
 
-function buildCard(pool, date) {
-  const ss = sessionsFor(pool, date);
-  const isNow = openNow(pool);
-  const isSeasonClosed = !inSeason(pool, date);
-  const hasSessions = ss.length > 0;
-  const nm = viewDate ? -1 : nowMins();
+function buildCard(pool,date){
+  const raw=sessionsFor(pool,date),ss=mergedSessions(raw);
+  const isNow=openNow(pool),isSeason=!inSeason(pool,date);
+  const hasSessions=ss.length>0,nm=viewDate?-1:nowMins();
 
-  // Cards that are not open today start collapsed
-  const startCollapsed = !isNow && !hasSessions;
+  const card=document.createElement('div');
+  card.className='card';
 
-  const card = document.createElement('div');
-  card.className = `card${isNow?' is-open-now':''}${startCollapsed?' collapsed':''}`;
+  // Header: name + pill
+  const hdr=document.createElement('div');hdr.className='card-header';
+  const name=document.createElement('div');name.className='card-name';
+  name.textContent=pool.name;
+  hdr.appendChild(name);
 
-  // ── Card header (always visible, tap to toggle) ──
-  const head = document.createElement('div');
-  head.className = 'card-head';
-  head.onclick = () => toggleCard(card);
+  const pill=document.createElement('span');
+  if(isNow){pill.className='status-pill pill-now';pill.textContent='Open Now';}
+  else if(isSeason){pill.className='status-pill pill-season';pill.textContent='Seasonal';}
+  else if(hasSessions){pill.className='status-pill pill-today';pill.textContent=viewDate?'Open':'Open Today';}
+  else{pill.className='status-pill pill-closed';pill.textContent='Closed';}
+  hdr.appendChild(pill);
+  card.appendChild(hdr);
 
-  // Thumb image (always shown)
-  const thumbWrap = document.createElement('div');
-  thumbWrap.className = 'card-thumb';
-  const thumbImg = document.createElement('img');
-  thumbImg.src = `images/${pool.image}`;
-  thumbImg.alt = pool.name;
-  thumbWrap.appendChild(thumbImg);
-  head.appendChild(thumbWrap);
-
-  // Name + status
-  const headInfo = document.createElement('div');
-  headInfo.className = 'card-head-info';
-
-  const nameEl = document.createElement('div');
-  nameEl.className = 'card-pool-name';
-  nameEl.textContent = pool.name;
-  headInfo.appendChild(nameEl);
-
-  const statusRow = document.createElement('div');
-  statusRow.className = 'card-status-row';
-
-  // Status pill
-  const pill = document.createElement('span');
-  if (isNow) {
-    pill.className = 'status-pill pill-open';
-    pill.textContent = 'Open Now';
-  } else if (isSeasonClosed) {
-    pill.className = 'status-pill pill-season';
-    pill.textContent = 'Seasonal';
-  } else if (hasSessions) {
-    pill.className = 'status-pill pill-open-today';
-    pill.textContent = viewDate ? 'Open' : 'Open Today';
-  } else {
-    pill.className = 'status-pill pill-closed';
-    pill.textContent = 'Closed';
+  // Detail line
+  const detail=document.createElement('div');detail.className='card-detail';
+  if(isNow){
+    const cur=ss.find(s=>nm>=parseTime(s.open)&&nm<parseTime(s.close));
+    if(cur){
+      const sp=document.createElement('span');sp.className='now-text';
+      sp.textContent=`${cur.label} until ${fmtTime(cur.close)}`;
+      detail.appendChild(sp);
+    }
+  } else if(isSeason){
+    const sp=document.createElement('span');
+    sp.textContent=pool.seasonalNote||'Closed for season';
+    detail.appendChild(sp);
+  } else if(hasSessions&&!viewDate){
+    let next=null;
+    for(const s of raw){const o=parseTime(s.open);if(o>nm&&(next===null||o<next.m))next={m:o,t:s.open};}
+    if(next){
+      const sp=document.createElement('span');
+      sp.textContent=`Next session at ${fmtTime(next.t)}`;
+      detail.appendChild(sp);
+    }
+  } else if(!hasSessions&&!isSeason){
+    const sp=document.createElement('span');
+    sp.textContent=pool.fallbackNote||'No sessions today';
+    detail.appendChild(sp);
   }
-  statusRow.appendChild(pill);
-
-  // Distance
-  if (userLat !== null) {
-    const dist = haversine(userLat, userLng, pool.lat, pool.lng);
-    const distEl = document.createElement('span');
-    distEl.className = 'card-dist';
-    distEl.textContent = `${dist.toFixed(1)} mi`;
-    statusRow.appendChild(distEl);
+  if(userLat!==null){
+    const sp=document.createElement('span');sp.className='dist';
+    sp.textContent=`${haversine(userLat,userLng,pool.lat,pool.lng).toFixed(1)} mi`;
+    detail.appendChild(sp);
   }
+  card.appendChild(detail);
 
-  headInfo.appendChild(statusRow);
-  head.appendChild(headInfo);
-
-  // Chevron
-  const chev = document.createElement('span');
-  chev.className = 'card-chevron';
-  chev.textContent = '▾';
-  head.appendChild(chev);
-
-  card.appendChild(head);
-
-  // ── Expandable area ──
-  const expand = document.createElement('div');
-  expand.className = 'card-expand-area';
-
-  // Full image
-  const imgWrap = document.createElement('div');
-  imgWrap.className = 'card-img-full';
-  const fullImg = document.createElement('img');
-  fullImg.src = `images/${pool.image}`;
-  fullImg.alt = pool.name;
-  imgWrap.appendChild(fullImg);
-
-  // Image label
-  const imgLabel = document.createElement('div');
-  imgLabel.className = 'img-label';
-  imgLabel.textContent = pool.name;
-  imgWrap.appendChild(imgLabel);
-
-  expand.appendChild(imgWrap);
-
-  // Body
-  const body = document.createElement('div');
-  body.className = 'card-body';
-
-  if (isSeasonClosed && pool.seasonalNote) {
-    const msg = document.createElement('div');
-    msg.className = 'season-msg';
-    msg.textContent = pool.seasonalNote;
-    body.appendChild(msg);
-  } else if (!hasSessions) {
-    const msg = document.createElement('div');
-    msg.className = 'no-sessions-msg';
-    msg.textContent = pool.fallbackNote || 'No sessions scheduled.';
-    body.appendChild(msg);
-  } else {
-    const lbl = document.createElement('div');
-    lbl.className = 'sessions-today-label';
-    lbl.textContent = viewDate ? `Sessions · ${fmtDate(date)}` : "Today's Sessions";
-    body.appendChild(lbl);
-
-    const ul = document.createElement('ul');
-    ul.className = 'sessions-list';
-    ss.forEach(s => {
-      const o = parseTime(s.open), c = parseTime(s.close);
-      const active = nm >= 0 && nm >= o && nm < c;
-      const li = document.createElement('li');
-      li.className = `session-row${active?' now':''}`;
-      li.innerHTML = `<span class="session-name">${s.label}</span><span class="session-time">${fmtTime(s.open)} – ${fmtTime(s.close)}</span>`;
+  // Sessions
+  if(hasSessions){
+    const sec=document.createElement('div');sec.className='card-sessions';
+    const ul=document.createElement('ul');ul.className='sessions-list';
+    ss.forEach(s=>{
+      const o=parseTime(s.open),c=parseTime(s.close);
+      const active=nm>=0&&nm>=o&&nm<c;
+      const li=document.createElement('li');
+      li.className='session-row'+(active?' now':'');
+      li.innerHTML=`<span class="session-name">${s.label}</span><span class="session-time">${fmtTime(s.open)} \u2013 ${fmtTime(s.close)}</span>`;
       ul.appendChild(li);
     });
-    body.appendChild(ul);
+    sec.appendChild(ul);
+    card.appendChild(sec);
   }
 
-  expand.appendChild(body);
-
   // Footer
-  const foot = document.createElement('div');
-  foot.className = 'card-foot';
-  const link = document.createElement('a');
-  link.className = 'schedule-link';
-  link.href = pool.website;
-  link.target = '_blank';
-  link.rel = 'noopener';
-  link.textContent = '↗ Full Schedule';
-  link.onclick = e => e.stopPropagation();
-  const tag = document.createElement('span');
-  tag.className = `data-tag${pool.dataSource==='live'?' live':''}`;
-  tag.textContent = pool.dataSource==='live' ? '● live data' : '○ estimated';
-  foot.appendChild(link);
-  foot.appendChild(tag);
-  expand.appendChild(foot);
+  const foot=document.createElement('div');foot.className='card-foot';
+  const link=document.createElement('a');link.className='schedule-link';
+  link.href=pool.website;link.target='_blank';link.rel='noopener';
+  link.textContent='\u2197 Full Schedule';
+  const tag=document.createElement('span');
+  tag.className='data-tag'+(pool.dataSource==='live'?' live':'');
+  tag.textContent=pool.dataSource==='live'?'\u25CF live':'\u25CB estimated';
+  foot.appendChild(link);foot.appendChild(tag);
+  card.appendChild(foot);
 
-  card.appendChild(expand);
   return card;
 }
 
-function toggleCard(card) {
-  card.classList.toggle('collapsed');
-}
-
-// ── Init ─────────────────────────────────────────────────────────────────────
-async function init() {
-  try {
-    const resp = await fetch('data/schedules.json');
-    const data = await resp.json();
-    pools = data.pools;
+async function init(){
+  try{
+    const r=await fetch('data/schedules.json'),d=await r.json();
+    pools=d.pools;
     document.getElementById('loading').remove();
     render();
-  } catch(e) {
-    document.getElementById('loading').textContent = 'Failed to load schedule data.';
-  }
+  }catch(e){document.getElementById('loading').textContent='Failed to load schedule data.';}
   initGeo();
-  setInterval(() => { if (pools && !viewDate) render(); }, 60000);
+  setInterval(()=>{if(pools&&!viewDate)render();},60000);
+}
+init();
+
+// ── PWA ──────────────────────────────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
 }
 
-init();
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const bar = document.getElementById('install-bar');
+  if (bar) bar.style.display = 'flex';
+});
+
+function installApp() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    deferredPrompt = null;
+    document.getElementById('install-bar').style.display = 'none';
+  });
+}
 </script>
 </body>
 </html>
