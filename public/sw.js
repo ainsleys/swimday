@@ -1,16 +1,7 @@
-const CACHE = 'swimday-v2';
-const ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
-  './data/schedules.json',
-  './fonts/boecklins-universe.woff',
-];
+const CACHE = 'swimday-v3';
 
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())
-  );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
@@ -22,20 +13,16 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Network-first for data, cache-first for assets
-  if (e.request.url.includes('/data/')) {
-    e.respondWith(
-      fetch(e.request)
-        .then(r => {
+  // Network-first for everything — fall back to cache when offline
+  e.respondWith(
+    fetch(e.request)
+      .then(r => {
+        if (r.ok) {
           const clone = r.clone();
           caches.open(CACHE).then(c => c.put(e.request, clone));
-          return r;
-        })
-        .catch(() => caches.match(e.request))
-    );
-  } else {
-    e.respondWith(
-      caches.match(e.request).then(r => r || fetch(e.request))
-    );
-  }
+        }
+        return r;
+      })
+      .catch(() => caches.match(e.request))
+  );
 });
